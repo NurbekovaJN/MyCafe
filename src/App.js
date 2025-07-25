@@ -1,6 +1,7 @@
 import './App.css';
 import MainPage from './MainPage'
 import { Link, Routes, Route } from 'react-router-dom'
+import style from './MainPage.css'
 
 function App() {
   return (

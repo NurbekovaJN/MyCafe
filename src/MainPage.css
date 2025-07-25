@@ -1,0 +1,12 @@
+.dishes{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.dish{
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(45deg, lightpink, lightblue);
+    width: 50vh;
+}
