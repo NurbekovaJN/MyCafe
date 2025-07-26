@@ -1,12 +1,62 @@
+
+body{
+    padding-top: 50px;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px;
+    background-color: rgba(211, 211, 211, 0.564);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.nav-links{
+    display: flex;
+    gap: 20px;
+}
+
+.logIn-signUp-links{
+    display: flex;
+    gap: 20px;
+}
+
+a{
+    text-decoration: none;
+}
+
 .dishes{
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    justify-content: center;
+    gap: 20px;
+    background-color: antiquewhite;
+    padding: 20px;
+    margin: 30px;
 }
 
 .dish{
     display: flex;
     flex-direction: column;
-    background: linear-gradient(45deg, lightpink, lightblue);
+    background: linear-gradient(45deg, rgba(255, 182, 193, 0.551), rgba(173, 216, 230, 0.501));
     width: 50vh;
+    padding: 15px;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px;
 }
+
+.dish-img{
+    background-image: url(./content/food-placeholder.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: none;
+    border-radius: 10px;
+    width: 200px;
+    height: 200px;
+}
+

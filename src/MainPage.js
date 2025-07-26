@@ -6,6 +6,9 @@ function GetAllFoods(){
     const [dishes, setDishes] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [selectedCategories, setSelectedCategories] = useState([])
+    const [isVegeterianOnly, setIsVegeterianOnly] = useState(false)
+    const [sortBy, setSortBy] = useState('')
 
     useEffect(() => {
         const MenuUrl = 'https://food-delivery.kreosoft.ru/api/dish'
@@ -51,9 +54,9 @@ function GetAllFoods(){
                     <li className="dish" key={dish.id}>
                         <span>{dish.name}</span>
                         <span>{dish.category}</span>
-                        <img src={dish.image} alt="dish-img" style={{width: '200px', height: '200px'}}/>
+                        <div className="dish-img"></div>
                         <span>{dish.description}</span>
-                        <span>{dish.price}</span>
+                        <span>{dish.price} руб</span>
                         <span>{dish.rating}</span>
                         <span>{dish.vegetarian}</span>
                     </li>
