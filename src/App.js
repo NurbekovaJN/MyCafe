@@ -1,8 +1,8 @@
 import './App.css';
-import MainPage from './MainPage'
+import MainPage from './components/MainPage'
 import { Link, Routes, Route } from 'react-router-dom'
 import style from './MainPage.css'
-import DishFilterSort  from './DishFilterSort'
+import DishFilterSort  from './components/MenuFilterSort'
 
 function App() {
   return (
