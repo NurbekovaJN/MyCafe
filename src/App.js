@@ -9,6 +9,7 @@ function App() {
     <div>
       <nav>
         <div className='nav-links'>
+        <img src="image/chef-hat-heart-broken.png" alt="logo" className='logo'/>
           <Link to=''>Меню</Link>
           <Link to=''>Заказы</Link>
           <Link to=''>Корзина</Link>
@@ -26,6 +27,14 @@ function App() {
 
       <MainPage/>
       <DishFilterSort/>
+
+      <footer>
+        <p className='start-date'>2025</p>
+        <div className='brand'>
+          <p className='brand-name'>MyCafe</p>
+          <img src="image/chef-hat-heart-broken.png" alt="logo" className='footer-logo'/>
+        </div>
+      </footer>
     </div>
   )
 }

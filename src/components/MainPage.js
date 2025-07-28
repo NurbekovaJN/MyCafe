@@ -3,7 +3,6 @@ import { useState, useEffect } from "react"
 import { Rate } from 'antd'
 import { Link } from "react-router-dom"
 import MenuFilterSort from "./MenuFilterSort"
-import DishRating from "./DishRating"
 import DishModal from './DishModal'
 
 
@@ -72,7 +71,7 @@ function GetAllFoods(){
                             <div className="vegan-icon-container">{dish.vegetarian && (<img src="image/vegan.png" alt="vegan" className="vegan-icon"/>)}</div>
                         </div>
                         
-                        <span style={{fontSize: '20px', color: 'darkred'}}>{dish.name}</span>
+                        <span style={{fontSize: '20px', color: 'darkred'}}>"{dish.name}"</span>
                         <span>{dish.category}</span>
                         <div className="rating-box">
                             <Rate allowHalf value={dish.rating} count={10} disabled/>

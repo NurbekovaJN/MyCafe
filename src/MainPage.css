@@ -5,20 +5,70 @@ body{
     background-color: rgba(232, 219, 213, 0.497);
 }
 
+footer{
+    background-color: rgba(211, 211, 211, 0.564);
+    padding: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand{
+    display: flex;
+    gap: 8px;
+}
+
+.brand-name{
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.start-date{
+    font-size: 15px;
+}
+
+.footer-logo{
+    width: 30px;
+    height: 30px;
+    margin: auto;
+}
+
 nav{
     display: flex;
     justify-content: space-between;
-    padding: 30px;
+    padding: 20px;
     background-color: rgba(211, 211, 211, 0.564);
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
+    align-items: center;
+}
+
+.logo{
+    width: 50px;
+    height: 50px;
 }
 
 .nav-links{
     display: flex;
     gap: 20px;
+    align-items: center;
+}
+
+a{
+    color: #333;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover{
+    color: bisque;
+    text-shadow: 2px 2px 2px #000000;
+    letter-spacing: 2px;
+
 }
 
 .logIn-signUp-links{
@@ -78,14 +128,20 @@ a{
 
 .buyButton{
     font-size: 16px;
-    color: rgb(30, 78, 45);
+    color: rgb(78, 30, 30);
     text-shadow: 1px 1px 2px #fff;
     padding: 5px;
     width: 130%;
     border: none;
     border-radius: 5px;
-    background: linear-gradient(45deg, rgba(173, 230, 249, 0.759), rgba(144, 238, 144, 0.758));
+    background: linear-gradient(45deg, rgba(249, 227, 173, 0.759), rgba(238, 144, 144, 0.758));
     box-shadow: 1px 1px 3px #333;
+    transition: color 0.9s ease-in-out;
+
+}
+
+.buyButton:hover{
+    background: linear-gradient(45deg, rgba(249, 227, 173, 0.394), rgba(238, 144, 144, 0.379));
 }
 
 .vegan-icon-container{
@@ -139,7 +195,9 @@ a{
 }
 
 .close-modal-icon{
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     align-self: flex-start;
+    cursor: pointer;
 }
+
