@@ -1,15 +1,29 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
-import MenuFilterSort from "./MenuFilterSort"
-import DishRating from "./DishRating"
 import { Rate } from 'antd'
 import { Link } from "react-router-dom"
+import MenuFilterSort from "./MenuFilterSort"
+import DishRating from "./DishRating"
+import DishModal from './DishModal'
 
 
 function GetAllFoods(){
     const [dishes, setDishes] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [selectedDish, setSelectedDish] = useState(null)
+
+    const handleCardCLick = (dish) => {
+        setSelectedDish(dish)
+        setIsModalOpen(true)
+    }
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false)
+        setSelectedDish(null)
+    } 
 
     useEffect(() => {
         const MenuUrl = 'https://food-delivery.kreosoft.ru/api/dish'
@@ -35,6 +49,7 @@ function GetAllFoods(){
 
         fetchMenu()
 
+
 },
 [])
     if(loading){
@@ -52,16 +67,17 @@ function GetAllFoods(){
         <div className="menu-container">
             {<ul className="dishes">
                 {dishes.map(dish => (
-                    <li className="dish" key={dish.id}>
-                        <div className="dish-img"></div>
+                    <li className="dish" key={dish.id} onClick={() => handleCardCLick(dish)}>
+                        <div className="dish-img">
+                            <div className="vegan-icon-container">{dish.vegetarian && (<img src="image/vegan.png" alt="vegan" className="vegan-icon"/>)}</div>
+                        </div>
+                        
                         <span style={{fontSize: '20px', color: 'darkred'}}>{dish.name}</span>
                         <span>{dish.category}</span>
                         <div className="rating-box">
-                            {/* {dish.rating.toFixed(1)} */}
                             <Rate allowHalf value={dish.rating} count={10} disabled/>
                         </div>
-                        {/* <span>{dish.description}</span> */}
-                        <span>{dish.vegetarian}</span>
+                        
                         <div className="price-basket">
                             <span style={{fontSize: '20px', color: 'grey'}}>Цена - {dish.price} руб</span>
                             <Link>
@@ -71,7 +87,9 @@ function GetAllFoods(){
                     </li>
                 ))}
             </ul>}
+            <DishModal isOpen={isModalOpen} dish={selectedDish} onClose={handleCloseModal}/>
         </div>
+
     
     )}
     
