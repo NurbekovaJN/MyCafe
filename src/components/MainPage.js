@@ -1,8 +1,9 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
 import MenuFilterSort from "./MenuFilterSort"
-import Rating from "./Rating"
+import DishRating from "./DishRating"
 import { Rate } from 'antd'
+import { Link } from "react-router-dom"
 
 
 function GetAllFoods(){
@@ -52,16 +53,21 @@ function GetAllFoods(){
             {<ul className="dishes">
                 {dishes.map(dish => (
                     <li className="dish" key={dish.id}>
-                        <span>{dish.name}</span>
-                        <span>{dish.category}</span>
                         <div className="dish-img"></div>
-                        <span>{dish.description}</span>
-                        <span>Цена - {dish.price} руб</span>
+                        <span style={{fontSize: '20px', color: 'darkred'}}>{dish.name}</span>
+                        <span>{dish.category}</span>
                         <div className="rating-box">
-                            {dish.rating.toFixed(1)}
+                            {/* {dish.rating.toFixed(1)} */}
                             <Rate allowHalf value={dish.rating} count={10} disabled/>
-                            </div>
+                        </div>
+                        {/* <span>{dish.description}</span> */}
                         <span>{dish.vegetarian}</span>
+                        <div className="price-basket">
+                            <span style={{fontSize: '20px', color: 'grey'}}>Цена - {dish.price} руб</span>
+                            <Link>
+                                <button className="buyButton">В корзину</button>
+                            </Link>
+                        </div>
                     </li>
                 ))}
             </ul>}

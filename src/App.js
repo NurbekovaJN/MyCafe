@@ -19,6 +19,11 @@ function App() {
           <Link to=''>Войти</Link>
         </div>
       </nav>
+
+      <Routes>
+        <Route path=''></Route>
+      </Routes>
+
       <MainPage/>
       <DishFilterSort/>
     </div>
