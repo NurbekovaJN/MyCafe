@@ -1,8 +1,7 @@
 import './App.css';
-import MainPage from './components/MainPage'
-import { Link, Routes, Route } from 'react-router-dom'
+import MenuPage from './components/MenuPage'
+import { Link, Routes, Route, Router } from 'react-router-dom'
 import style from './MainPage.css'
-import DishFilterSort  from './components/MenuFilterSort'
 
 function App() {
   return (
@@ -21,18 +20,25 @@ function App() {
         </div>
       </nav>
 
+      {/* <div className='filter-sort'>
+        <p>categories</p>
+        <DishFilterSort/>
+      </div> */}
+
       <Routes>
-        <Route path=''></Route>
+        <Route path='/' element={<MenuPage/>}></Route>
+        <Route path='/:categories' element={<MenuPage/>}></Route>
+
       </Routes>
 
-      <MainPage/>
-      <DishFilterSort/>
-
       <footer>
-        <p className='start-date'>2025</p>
+        <div className='start-date'> 
+          <img src="image/caelus-icon-pack.png" alt="icon" className='icon'/>
+          <p className='year'>2025</p>
+          <p className='brand-name'>- MyCafe</p>
+        </div>
         <div className='brand'>
-          <p className='brand-name'>MyCafe</p>
-          <img src="image/chef-hat-heart-broken.png" alt="logo" className='footer-logo'/>
+          {/* <img src="image/chef-hat-heart-broken.png" alt="logo" className='footer-logo'/> */}
         </div>
       </footer>
     </div>

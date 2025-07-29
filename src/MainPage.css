@@ -25,6 +25,17 @@ footer{
 }
 
 .start-date{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.icon{
+    width: 15px;
+    height: 15px;
+}
+
+.year{
     font-size: 15px;
 }
 
@@ -66,8 +77,9 @@ a{
 
 a:hover{
     color: bisque;
-    text-shadow: 2px 2px 2px #000000;
+    text-shadow: 2px 2px 1px #000000a9;
     letter-spacing: 2px;
+    font-weight: bold;
 
 }
 
@@ -158,6 +170,8 @@ a{
     margin: 5px;
 }
 
+
+
 /* Модальное окно */
 
 .modal-overlay{
@@ -174,7 +188,7 @@ a{
 .modal-content{
     background-color: floralwhite;
     padding: 30px;
-    width: 70%;
+    width: 60%;
     position: relative;
     margin: auto;
     border-radius: 10px;
@@ -201,3 +215,6 @@ a{
     cursor: pointer;
 }
 
+.category-filter{
+    margin-top: 50px;
+}
