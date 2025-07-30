@@ -20,15 +20,9 @@ function App() {
         </div>
       </nav>
 
-      {/* <div className='filter-sort'>
-        <p>categories</p>
-        <DishFilterSort/>
-      </div> */}
-
       <Routes>
         <Route path='/' element={<MenuPage/>}></Route>
         <Route path='/:categories' element={<MenuPage/>}></Route>
-
       </Routes>
 
       <footer>

@@ -1,6 +1,5 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
 import DishModal from './DishModal'
 import CategoryFilter from './CategoryFilter'
 import DishList from './DishList'
@@ -14,7 +13,7 @@ function MenuPage(){
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedDish, setSelectedDish] = useState(null)
 
-    const [selectedCategory, setSelectedCategory] = useState('ALL')
+    const [selectedCategory, setSelectedCategory] = useState('Все блюда')
 
     const handleCardCLick = (dish) => {
         setSelectedDish(dish)
@@ -68,11 +67,11 @@ function MenuPage(){
         )
     }
 
-    const filteredDishes = selectedCategory === 'ALL' 
+    const filteredDishes = selectedCategory === 'Все блюда' 
         ? dishes 
         : dishes.filter(dish => dish.category === selectedCategory)
 
-    const uniqeCategories = ['ALL', ...new Set(dishes.map(dish => dish.category))]
+    const uniqeCategories = ['Все блюда', ...new Set(dishes.map(dish => dish.category))]
 
     return(
         <div className="menu-container">
@@ -81,9 +80,7 @@ function MenuPage(){
                 selectedCategory={selectedCategory}
                 onSelectCategory={handleCategorySelect}
             />
-
             <DishList dishes={filteredDishes} onDishClick={handleCardCLick}/>
-
             <DishModal isOpen={isModalOpen} dish={selectedDish} onClose={handleCloseModal}/>
         </div>
 )}
