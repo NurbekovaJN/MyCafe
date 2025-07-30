@@ -16,7 +16,7 @@ function DishCard({dish, onClick }){
                             
             <div className="price-basket">
                 <span style={{fontSize: '20px', color: 'grey'}}>Цена - {dish.price} руб</span>
-                <Link>
+                <Link onClick={(e) => e.stopPropagation()}>
                     <button className="buyButton">В корзину</button>
                 </Link>
             </div>

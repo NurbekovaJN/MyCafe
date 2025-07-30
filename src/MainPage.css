@@ -115,7 +115,7 @@ footer{
     gap: 20px;
     /* background-color: antiquewhite; */
     padding: 10px;
-    margin: 30px;
+    margin: 20px;
     min-height: 70vh;
 }
 
@@ -164,14 +164,14 @@ footer{
     width: 130%;
     border: none;
     border-radius: 5px;
-    background: linear-gradient(45deg, rgba(249, 227, 173, 0.759), rgba(238, 144, 144, 0.758));
+    background: linear-gradient(45deg, rgba(240, 229, 199, 0.79), rgba(243, 153, 80, 0.834));
     box-shadow: 1px 1px 3px #333;
     transition: color 0.9s ease-in-out;
 
 }
 
 .buyButton:hover{
-    background: linear-gradient(45deg, rgba(249, 227, 173, 0.394), rgba(238, 144, 144, 0.379));
+    background: linear-gradient(45deg, rgba(240, 229, 199, 0.79), rgba(240, 229, 199, 0.79));
 }
 
 .vegan-icon-container{
@@ -239,12 +239,13 @@ footer{
 
 .filter-sort-container{
     background-color: floralwhite;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
-    width: 50%;
-    margin: 50px auto;
-    border: 0.5px solid #333;
+    width: 70%;
+    margin: 60px auto 0;
+    /* border: 0.5px solid #333; */
     border-radius: 5px;
+    box-shadow: 1px 1px 5px #33333391;
 }
 
 .category-filter{
@@ -254,7 +255,7 @@ footer{
     flex-direction: column;
     padding: 5px;
     gap: 3px;
-    width: 20%;
+    width: 15%;
 }
 
 .category-button{
@@ -262,6 +263,11 @@ footer{
     align-items: center;
     border: none;
     border-radius: 5px;
-    box-shadow: 1px 1px 1px #333;
+    box-shadow: 1px 1px 1px #333333ad;
     background: linear-gradient(45deg, rgba(245, 199, 144, 0.55), rgba(247, 233, 217, 0.651) );
+    cursor: pointer;
+}
+
+.category-button:hover{
+    background: linear-gradient(45deg, rgba(245, 200, 144, 0.297), rgba(247, 233, 217, 0.303) );
 }
