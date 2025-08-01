@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom"
 import { Rate } from "antd"
 
-function DishModal({isOpen, dish, onClose}){
-    if(!isOpen){
-        return null
+function DishModal({isOpen, dish, onClose}){ // передаем пропсы из компоненты MenuPage
+    if(!isOpen){ 
+        return null 
     }
     if(!dish){
-        return null
+        return null 
     }
 
     return(
-        <div className="modal-overlay" onClick={onClose}>
+        <div className="modal-overlay" onClick={onClose}> 
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
 
                 <div className="dish-img" style={{width: '400px', height: '400px'}}>
@@ -33,10 +33,10 @@ function DishModal({isOpen, dish, onClose}){
                         </Link>
                     </div>
                 </div>
-                <img src='image/close.png' className="close-modal-icon" onClick={onClose}/>
+                <img src='image/close.png' className="close-modal-icon" onClick={onClose}/> 
             </div>
         </div>
-    )
+    ) // отображение модального окна с подробной информацией о блюде
 } 
 
 export default DishModal
