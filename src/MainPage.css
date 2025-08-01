@@ -246,6 +246,8 @@ footer{
     /* border: 0.5px solid #333; */
     border-radius: 5px;
     box-shadow: 1px 1px 5px #33333391;
+    display: flex;
+    gap: 20px;
 }
 
 .category-filter{
@@ -270,4 +272,23 @@ footer{
 
 .category-button:hover{
     background: linear-gradient(45deg, rgba(245, 200, 144, 0.297), rgba(247, 233, 217, 0.303) );
+}
+
+.vegan-filter-container{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.apply-button{
+    margin: auto;
+    font-size: 16px;
+    color: rgb(78, 30, 30);
+    text-shadow: 1px 1px 2px #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(45deg, rgba(240, 229, 199, 0.79), rgba(243, 153, 80, 0.834));
+    box-shadow: 1px 1px 3px #333;
+    transition: color 0.9s ease-in-out;
 }

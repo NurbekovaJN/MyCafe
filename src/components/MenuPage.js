@@ -1,8 +1,9 @@
 import axios from "axios"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import DishModal from './DishModal'
 import CategoryFilter from './CategoryFilter'
 import DishList from './DishList'
+import VeganFilter from "./VeganFilter"
 
 
 function MenuPage(){
@@ -14,6 +15,7 @@ function MenuPage(){
     const [selectedDish, setSelectedDish] = useState(null) // состояние выбранного блюда
 
     const [selectedCategory, setSelectedCategory] = useState('Все блюда') // состояние выбранной категории
+    const [veganFilter, setVeganFilter] = useState('all')
 
     const handleCardCLick = (dish) => { // обработчик событий для клика по карточке блюда чтобы открыть модалку
         setSelectedDish(dish) // передается блюдо в состояние 
@@ -27,6 +29,10 @@ function MenuPage(){
 
     const handleCategorySelect = (category) => { // обработчик для выбора категории блюд
         setSelectedCategory(category) // передаем выбранное блюдо в состояние
+    }
+
+    const handleVeganFilterChange = (filterType) => {
+        setVeganFilter(filterType)
     }
 
     useEffect(() => {
@@ -67,6 +73,20 @@ function MenuPage(){
         )
     }
 
+//     const filteredDishes = useMemo(() => {
+//         let currenDishes = dishes
+//         if(selectedCategory !== 'Все блюда'){
+//             currenDishes = currenDishes.filter(dish => dish.category === selectedCategory)
+//         }
+//         if(veganFilter === 'vegan'){
+//             currenDishes = currenDishes.filter(dish => dish.vegeterian === true)
+//         }else if(veganFilter === 'nonVegan'){
+//             currenDishes = currenDishes.filter(dish => dish.vegeterian === false)
+//         }
+//         return currenDishes
+//     },[dishes, selectedCategory, veganFilter]
+// )
+
     const filteredDishes = selectedCategory === 'Все блюда'
         ? dishes 
         : dishes.filter(dish => dish.category === selectedCategory) // тернарный оператор для определения каких блюд будут отображаться
@@ -75,11 +95,19 @@ function MenuPage(){
 
     return(
         <div className="menu-container">
-            <CategoryFilter // компонент для фильтра по категориям
-                categories={uniqeCategories} // пропс со всеми категориями блюд
-                selectedCategory={selectedCategory} // пропс для выбранной категории
-                onSelectCategory={handleCategorySelect} // пропс для функции обработчика выбора категории
-            />
+            <div className="filter-sort-container">
+                <CategoryFilter // компонент для фильтра по категориям
+                    categories={uniqeCategories} // пропс со всеми категориями блюд
+                    selectedCategory={selectedCategory} // пропс для выбранной категории
+                    onSelectCategory={handleCategorySelect} // пропс для функции обработчика выбора категории
+                />
+                <VeganFilter
+                    selectedFilter={veganFilter}
+                    onFilterChange={handleVeganFilterChange}
+                />
+                <button className="apply-button">Применить</button>
+            </div>
+
             <DishList // компонент для списка блюд
                 dishes={filteredDishes} // пропс для отображения блюд
                 onDishClick={handleCardCLick} // пропс для функции обработчика карточки блюда
