@@ -1,14 +1,16 @@
 import './App.css';
-import MenuPage from './components/MenuPage'
-import { Link, Routes, Route, Router } from 'react-router-dom'
 import style from './MainPage.css'
+import { Link, Routes, Route, Router } from 'react-router-dom'
+import MenuPage from './components/MenuPage'
+import CategoryFilter from './components/CategoryFilter';
+import DishModal from './components/DishModal';
 
 function App() {
   return (
     <div>
       <nav>
         <div className='nav-links'>
-        <img src="image/chef-hat-heart-broken.png" alt="logo" className='logo'/>
+        <img src="./image/chef-hat-heart-broken.png" alt="logo" className='logo'/>
           <Link to=''>Меню</Link>
           <Link to=''>Заказы</Link>
           <Link to=''>Корзина</Link>
@@ -21,13 +23,14 @@ function App() {
       </nav>
 
       <Routes>
-        <Route path='/' element={<MenuPage/>}></Route>
-        <Route path='/:categories' element={<MenuPage/>}></Route>
+        <Route path='' element={<MenuPage/>}></Route>
+        <Route path='/:categoryId' element={<CategoryFilter/>}></Route>
+        <Route path='/:dishId' element={<DishModal/>}></Route>
       </Routes>
 
       <footer>
         <div className='start-date'> 
-          <img src="image/caelus-icon-pack.png" alt="icon" className='icon'/>
+          <img src="./image/caelus-icon-pack.png" alt="icon" className='icon'/>
           <p className='year'>2025</p>
           <p className='brand-name'>- MyCafe</p>
         </div>

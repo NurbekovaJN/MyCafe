@@ -292,3 +292,7 @@ footer{
     box-shadow: 1px 1px 3px #333;
     transition: color 0.9s ease-in-out;
 }
+
+.apply-button:hover{
+    background: linear-gradient(45deg, rgba(240, 229, 199, 0.79), rgba(240, 229, 199, 0.79));
+}
