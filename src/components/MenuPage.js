@@ -4,6 +4,7 @@ import DishModal from './DishModal'
 import CategoryFilter from './CategoryFilter'
 import DishList from './DishList'
 import VeganFilter from "./VeganFilter"
+import { Pagination } from "antd"
 
 
 function MenuPage(){
@@ -45,13 +46,11 @@ function MenuPage(){
 
                 const response = await axios.get(MenuUrl) // получаем данные о блюдах 
                 console.log(response.data.dishes)
-                setDishes(response.data.dishes) // передаем эти данные в состояние
-                
+                setDishes(response.data.dishes) // передаем эти данные в состояние              
             }
             catch(err){
                 console.log('ERROR', err)
                 setError('Не удалось загрузить меню, пожалуйста попробуйте позже.') // записываем ошибку в состояние
-    
             }
             finally{
                 setLoading(false) // конец загрузки
@@ -101,6 +100,7 @@ function MenuPage(){
                 dish={selectedDish} // пропс для выбранного блюда
                 onClose={handleCloseModal} // пропс для функции обработчика закрытия модального окна
             />
+            <Pagination/>
         </div>
 )}
     

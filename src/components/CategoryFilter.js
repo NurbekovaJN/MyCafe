@@ -1,23 +1,32 @@
 
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate, Navigate } from "react-router-dom"
 import { Link } from "react-router-dom" 
 
 function CategoryFilter({categories, selectedCategory, onSelectCategory}){ // передаем пропсы из компонента MenuPage
+    const navigate = useNavigate()
     const { categoryId } = useParams()
-    
-    return(
-        <div className="category-filter">
-            {categories.map(category => ( // преобразуем каждую категорию в массиве категории
-                <Link to='/menu/:categoryId'>
-                    <button key={category} className={`category-button ${selectedCategory === category 
-                        ? 'active' : ''}`}onClick={() => onSelectCategory(category)}>
-                            {category}
-                    </button>
-                // </Link>
-            ))}
-        </div> 
-        // записываем каждую категорию в кнопку и передаем ему функцию обработчик клика 
-    )
+    const createCategoryFilter = () => {
+        navigate('/category=pizza')
+    }
+
+    if(categories !== undefined){
+        return(
+            <div className="category-filter">
+                {categories.map(category => ( // преобразуем каждую категорию в массиве категории
+                    <div onClick={createCategoryFilter}>
+                        <button key={category} className={`category-button ${selectedCategory === category 
+                            ? 'active' : ''}`} onClick={() => onSelectCategory(category)}>
+                                {category}
+                        </button>
+                    </div>
+                ))}
+            </div> 
+            // записываем каждую категорию в кнопку и передаем ему функцию обработчик клика 
+        )
+    }
+    else{
+        return <div className="loading-message">Загрузка категорий...</div>
+    }
 }
 
 export default CategoryFilter

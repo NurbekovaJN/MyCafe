@@ -108,6 +108,12 @@ footer{
 
 /* dishesMenu */
 
+.loading-message{
+    min-height: 100vh;
+    margin-top: 70px;
+    margin-left: 20px;
+}
+
 .dishes{
     display: flex;
     flex-wrap: wrap;
@@ -268,6 +274,7 @@ footer{
     box-shadow: 1px 1px 1px #333333ad;
     background: linear-gradient(45deg, rgba(245, 199, 144, 0.55), rgba(247, 233, 217, 0.651) );
     cursor: pointer;
+    width: 100%;
 }
 
 .category-button:hover{
