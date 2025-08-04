@@ -1,10 +1,9 @@
-import React from 'react';
+
 import { Switch } from 'antd';
 
-const onChange = (checked: boolean) => {
+const onChange = checked => {
   console.log(`switch to ${checked}`);
 };
+const VeganSwitchApp = () => <Switch defaultChecked onChange={onChange}/>;
 
-const VeganSwitch: React.FC = () => <Switch defaultChecked onChange={onChange} />;
-
-export default VeganSwitch;
+export default VeganSwitchApp;

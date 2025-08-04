@@ -194,6 +194,12 @@ footer{
     margin: 5px;
 }
 
+.pagination{
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+}
+
 
 
 /* Модальное окно */
@@ -253,7 +259,10 @@ footer{
     border-radius: 5px;
     box-shadow: 1px 1px 5px #33333391;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 20px;
+    padding-right: 40px;
 }
 
 .category-filter{
@@ -288,7 +297,7 @@ footer{
 }
 
 .apply-button{
-    margin: auto;
+    width: 15%;
     font-size: 16px;
     color: rgb(78, 30, 30);
     text-shadow: 1px 1px 2px #fff;

@@ -5,6 +5,7 @@ import CategoryFilter from './CategoryFilter'
 import DishList from './DishList'
 import VeganFilter from "./VeganFilter"
 import { Pagination } from "antd"
+import Sorting from "./Sorting"
 
 
 function MenuPage(){
@@ -86,9 +87,8 @@ function MenuPage(){
                     selectedCategory={selectedCategory} // пропс для выбранной категории
                     onSelectCategory={handleCategorySelect} // пропс для функции обработчика выбора категории
                 />
-                <VeganFilter
-            
-                />
+                <VeganFilter/>
+                <Sorting/>
                 <button className="apply-button">Применить</button>
             </div>
             <DishList // компонент для списка блюд
@@ -100,7 +100,9 @@ function MenuPage(){
                 dish={selectedDish} // пропс для выбранного блюда
                 onClose={handleCloseModal} // пропс для функции обработчика закрытия модального окна
             />
-            <Pagination/>
+            <div className="pagination">
+                <Pagination/>
+            </div>
         </div>
 )}
     
