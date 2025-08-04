@@ -100,9 +100,7 @@ function MenuPage(){
                 dish={selectedDish} // пропс для выбранного блюда
                 onClose={handleCloseModal} // пропс для функции обработчика закрытия модального окна
             />
-            <div className="pagination">
-                <Pagination/>
-            </div>
+                <Pagination className="pagination"/>
         </div>
 )}
     
