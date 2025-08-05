@@ -262,7 +262,7 @@ footer{
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    padding-right: 40px;
+    padding-right: 20px;
 }
 
 .category-filter{
@@ -294,6 +294,12 @@ footer{
     display: flex;
     gap: 10px;
     align-items: center;
+}
+
+.sorting{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .apply-button{

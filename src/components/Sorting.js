@@ -1,8 +1,8 @@
 import SortSelect from './SortSelect'
 import React from 'react';
-import { useSearchParams } from 'react-router-dom'; // <--- Импортируем useSearchParams
+import { useSearchParams } from 'react-router-dom'
 
-function Sorting({ onSortChange }) {
+function Sorting() {
     // Читаем текущий тип сортировки из URL
     const [searchParams, setSearchParams] = useSearchParams();
     const currentSortBy = searchParams.get('sortBy') || 'nameAsc' // Устанавливаем значение по умолчанию
@@ -14,9 +14,7 @@ function Sorting({ onSortChange }) {
         { value: 'priceDesc', label: 'Цена (по убыванию)' },
         { value: 'ratingAsc', label: 'Рейтинг (по возрастанию)' },
         { value: 'ratingDesc', label: 'Рейтинг (по убыванию)' },
-    ];
-
-            // <SortSelect/>
+    ]
 
      const handleSortChange =(sortBy) => {
         setSearchParams(prevParams => {
@@ -30,18 +28,15 @@ function Sorting({ onSortChange }) {
     return (
         <div className="sorting">
             <label htmlFor="sort-select">Сортировать по: </label>
-            <select
+            <SortSelect 
                 id="sort-select"
                 value={currentSortBy} // Управляем выбранным значением из URL
-                onChange={(e) => onSortChange(e.target.value)}>
-                {sortOptions.map(option => (
-                    <option key={option.value} value={option.value}>
-                        {option.label}
-                    </option>
-                ))}
-            </select>
+                options={sortOptions}
+                onChange={handleSortChange}
+            />
         </div>
-    );
+    )
 }
 
 export default Sorting;
+

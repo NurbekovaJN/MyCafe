@@ -9,7 +9,7 @@ const handleChange = value => {
 const SortingApp = () => (
   <Select
     defaultValue="По цене"
-    style={{ width: 250, textAlign: 'left' }}
+    style={{ width: 200, textAlign: 'left' }}
     onChange={handleChange}
     options={[
       {
