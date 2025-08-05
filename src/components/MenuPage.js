@@ -46,19 +46,22 @@ function MenuPage(){
                 setError(null)
 
                 let MenuApiUrl = 'https://food-delivery.kreosoft.ru/api/dish'
-                const apiQueryParams = new URLSearchParams()
+                const params = new URLSearchParams()
 
-                if(currentCategory !== 'Все блюда'){
-                    apiQueryParams.append('category', currentCategory)
+                if(params.get('category') === 'Все блюда'){
+                    params.delete('category')
                 }
-                apiQueryParams.append('sorting', currentSortBy)
-                apiQueryParams.append('page', currentPage.toString())
-                apiQueryParams.append('pageSize', currentPageSize.toString())
-                if(currentIsVegan){
-                    apiQueryParams.append('isVegan', 'true')
+                if(!params.has('sortBy')){
+                    params.set('sortBy', 'name')
                 }
-                if(apiQueryParams.toString()){
-                    MenuApiUrl += '?' + apiQueryParams.toString()
+                if(!params.has('isVegan')){
+                    params.set('isVegan', 'vegan')
+                }
+                if(!params.has('page')){
+                    params.set('page', '1')
+                }
+                if(!params.has('pageSize')){
+                    params.set('pageSize', '10')
                 }
                 console.log('Fetching URL:', MenuApiUrl)
 

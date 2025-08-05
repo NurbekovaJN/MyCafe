@@ -2,7 +2,7 @@ import VeganSwitch from './VeganSwitch'
 import { useSearchParams } from 'react-router-dom'
 
 
-function VeganFilter({onVeganFilterChange}){
+function VeganFilter(){
     // Читаем состояние веганского фильтра из URL
     const [searchParams, setSearchParams] = useSearchParams()
     const currentIsVegan = searchParams.get('isVegan') === 'true'
