@@ -19,7 +19,7 @@ function DishModal({isOpen, dish, onClose}){ // передаем пропсы и
 
                 <div className="dish-desc">
                     <span style={{fontSize: '40px', color: 'darkred'}}>"{dish.name}"</span>
-                    <span>{dish.category}</span>
+                    <span>Категория - {dish.category}</span>
                     <span>{dish.description}</span>
 
                     <div className="rating-box">

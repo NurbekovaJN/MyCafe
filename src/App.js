@@ -1,6 +1,6 @@
 import './App.css';
 import style from './MainPage.css'
-import { Link, Routes, Route, Router } from 'react-router-dom'
+import { BrowserRouter, Link, Routes, Route } from 'react-router-dom'
 import MenuPage from './components/MenuPage'
 import CategoryFilter from './components/CategoryFilter';
 import DishModal from './components/DishModal';
