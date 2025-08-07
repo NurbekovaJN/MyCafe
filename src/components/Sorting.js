@@ -1,41 +1,72 @@
-import SortSelect from './SortSelect'
-import React from 'react';
-import { useSearchParams } from 'react-router-dom'
+import react from 'react';
+import { Select } from 'antd';
 
-function Sorting() {
-    // Читаем текущий тип сортировки из URL
-    const [searchParams, setSearchParams] = useSearchParams();
-    // const currentSortBy = searchParams.get('sortBy') || 'nameAsc' // Устанавливаем значение по умолчанию
+const { Option, OptionGroup } = Select
 
-    const sortOptions = [
-        { value: 'nameAsc', label: 'Название (А-Я)' },
-        { value: 'nameDesc', label: 'Название (Я-А)' },
-        { value: 'priceAsc', label: 'Цена (по возрастанию)' },
-        { value: 'priceDesc', label: 'Цена (по убыванию)' },
-        { value: 'ratingAsc', label: 'Рейтинг (по возрастанию)' },
-        { value: 'ratingDesc', label: 'Рейтинг (по убыванию)' },
-    ]
+function Sorting({sortBy, sortOrder, onSortChange}) {
 
-    // const handleSortChange =(sortBy) => {
-    //     setSearchParams(prevParams => {
-    //         const newParams = new URLSearchParams(prevParams)
-    //         newParams.set('sortBy', sortBy)
-    //         newParams.set('page', '1')
-    //         return newParams
-    //     },{replace: true})
-    // }
+    const handleSortChange = value => {
+        let by = ''
+        let order = ''
+
+        switch(value){
+            case 'priceAsc':
+                by = 'price'
+                order = 'asc'
+                break
+            case 'priceDesc':
+                by = 'price'
+                order = 'desc'
+                break
+            case 'ratingAsc':
+                by = 'rating'
+                order = 'asc'
+                break
+            case 'ratingDesc':
+                by = 'rating'
+                order = 'desc'
+                break
+            case 'nameAsc':
+                by = 'name'
+                order = 'asc'
+                break
+            case 'nameDesc':
+                by = 'name'
+                order = 'desc'
+                break
+            default:
+                break
+        }
+        onSortChange(by, order)
+    }
+
+    const currentValue = sortBy && sortOrder ? `${sortBy}${sortOrder.charAt(0).toUpperCase() + sortOrder.slice(1)}` : undefined;
 
     return (
-        <div className="sorting">
+        <div className='sorting'>
             <label htmlFor="sort-select">Сортировать по: </label>
-            <SortSelect 
-                id="sort-select"
-                value={currentSortBy} // Управляем выбранным значением из URL
-                options={sortOptions}
+            <Select
+                defaultValue={currentValue}
+                style={{ width: 200, textAlign: 'left' }}
                 onChange={handleSortChange}
             />
+
+            <OptionGroup label="По цене">
+                <Option value="priceAsc">Дороже</Option>
+                <Option value="priceDesc">Дешевле</Option>
+            </OptionGroup>
+
+            <OptionGroup label="По рейтингу">
+                <Option value="ratingAsc">Выше</Option>
+                <Option value="ratingDesc">Ниже</Option>
+            </OptionGroup>
+
+            <OptionGroup label="По названию">
+                <Option value="nameAsc">А-Я</Option>
+                <Option value="nameDesc">Я-А</Option>
+            </OptionGroup>
         </div>
-    )
+    )  
 }
 
 export default Sorting;

@@ -1,5 +1,6 @@
+import react from "react"
 import axios from "axios"
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useMemo } from "react"
 import DishModal from './DishModal'
 import DishList from './DishList'
 import { Pagination } from "antd"
@@ -8,7 +9,6 @@ import FilterSortPanel from './FilterSortPanel'
 
 function MenuPage(){
     const [dishes, setDishes] = useState([]) // состояние всех блюд
-    const [totalDishes, setTotalDishes] = useState(0)
     const [isModalOpen, setIsModalOpen] = useState(false) // состояние открытой модалки
     const [selectedDish, setSelectedDish] = useState(null) // состояние выбранного блюда
 
@@ -44,7 +44,7 @@ function MenuPage(){
     }
 
     useEffect(() => {
-        const API_URL = 'https://food-delivery.kreosoft.ru/api'
+        const API_URL = 'https://food-delivery.kreosoft.ru/api/'
         const fetchMenu = async () => {
             try {
                 setLoading(true);
@@ -66,6 +66,11 @@ function MenuPage(){
         };
         fetchMenu();
     }, [searchParams]); // Этот эффект запустится, только когда изменятся параметры в URL
+
+    const uniqueCategories = useMemo(() => {
+        const categories = new Set(dishes.map(dish => dish.category));
+        return ['Все блюда', ...Array.from(categories)];
+    }, [dishes]) // Пересчитываем только при изменении списка блюд
 
     if (loading) {
         return <div className="loading-message">Загрузка меню...</div>;
@@ -97,41 +102,5 @@ function MenuPage(){
 
 export default MenuPage
 
-// const uniqueCategories = useMemo(() => {
-    //     const categories = new Set(dishes.map(dish => dish.category));
-    //     return ['Все блюда', ...Array.from(categories)];
-    // }, [dishes]) // Пересчитываем только при изменении списка блюд
 
-
-
-    // return (
-    //     <div className="menu-page">
-    //         <div className="filter-sort-container">
-    //             <CategoryFilter categories={uniqueCategories}/>
-    //             <Sorting/>
-    //             <VeganFilter/>
-    //             <button className="apply-button">Применить</button>
-    //         </div>
-    //         <DishList 
-    //             dishes={dishes} 
-    //             onDishClick={handleCardClick} 
-    //         />
-    //         <Pagination className="pagination"
-    //             current={currentPage}
-    //             pageSize={currentPageSize}
-    //             total={totalDishes}
-    //             onChange={handlePageChange}
-    //             // showSizeChanger
-    //             // pageSizeOptions={[5, 10, 20, 50]} // Пример опций для выбора размера страницы
-    //         />
-    //         {selectedDish && (
-    //             <DishModal
-    //                 isOpen={isModalOpen}
-    //                 dish={selectedDish}
-    //                 onClose={handleCloseModal}
-    //             />
-    //         )}
-    //     </div>
-    // )
-// }
 

@@ -1,3 +1,4 @@
+import react from "react";
 import CategoryFilter from "./CategoryFilter";
 import VeganFilter from "./VeganFilter";
 import Sorting from "./Sorting";
