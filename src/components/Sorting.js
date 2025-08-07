@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 function Sorting() {
     // Читаем текущий тип сортировки из URL
     const [searchParams, setSearchParams] = useSearchParams();
-    const currentSortBy = searchParams.get('sortBy') || 'nameAsc' // Устанавливаем значение по умолчанию
+    // const currentSortBy = searchParams.get('sortBy') || 'nameAsc' // Устанавливаем значение по умолчанию
 
     const sortOptions = [
         { value: 'nameAsc', label: 'Название (А-Я)' },
@@ -16,14 +16,14 @@ function Sorting() {
         { value: 'ratingDesc', label: 'Рейтинг (по убыванию)' },
     ]
 
-     const handleSortChange =(sortBy) => {
-        setSearchParams(prevParams => {
-            const newParams = new URLSearchParams(prevParams)
-            newParams.set('sortBy', sortBy)
-            newParams.set('page', '1')
-            return newParams
-        },{replace: true})
-    }
+    // const handleSortChange =(sortBy) => {
+    //     setSearchParams(prevParams => {
+    //         const newParams = new URLSearchParams(prevParams)
+    //         newParams.set('sortBy', sortBy)
+    //         newParams.set('page', '1')
+    //         return newParams
+    //     },{replace: true})
+    // }
 
     return (
         <div className="sorting">

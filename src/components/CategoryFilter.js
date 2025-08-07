@@ -3,25 +3,26 @@ import { useSearchParams } from "react-router-dom"
 function CategoryFilter({categories}){ 
     // // Читаем текущую активную категорию из URL
     const [searchParams, setSearchParams] = useSearchParams()
-    const currentCategory = searchParams.get('category') || 'Все блюда'
+    // const currentCategory = searchParams.get('category') || 'Все блюда'
+
+    
+    // const handleCategorySelect = (category) => {
+    //     setSearchParams(prevParams => {
+    //         const newParams = new URLSearchParams(prevParams)
+    //         if(category === 'Все блюда'){
+    //             newParams.delete('category')
+    //         }else{
+    //             newParams.set('category', category)
+    //         }
+    //         newParams.set('page', '1')
+    //         return newParams    
+    //     },{replace: true})
+    // }
 
     if(!Array.isArray(categories) || categories.length === 0){
         return <div className="loading-message">Загрузка категории...</div>
     }
-
-    const handleCategorySelect = (category) => {
-        setSearchParams(prevParams => {
-            const newParams = new URLSearchParams(prevParams)
-            if(category === 'все блюда'){
-                newParams.delete('category')
-            }else{
-                newParams.set('category', category)
-            }
-            newParams.set('page', '1')
-            return newParams    
-        },{replace: true})
-    }
-
+    
     if(categories !== undefined){
         return(
             <div className="category-filter">
@@ -42,30 +43,4 @@ function CategoryFilter({categories}){
 
 export default CategoryFilter
 
-
-
-
-/////
-
-// import React from 'react';
-// import { useSearchParams } from 'react-router-dom'; // <--- Импортируем useSearchParams
-
-// function CategoryFilter({ categories,  }) {
-     
-
-//     return (
-//         <div className="category-filter">
-//             {categories.map(category => (
-//                 <button
-//                     key={category}
-//                     className={selectedCategory === category ? 'active' : ''}
-//                     onClick={() => onCategorySelect(category)}>
-//                     {category}
-//                 </button>
-//             ))}
-//         </div>
-//     );
-// }
-
-// export default CategoryFilter;
 

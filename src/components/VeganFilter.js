@@ -5,20 +5,20 @@ import { useSearchParams } from 'react-router-dom'
 function VeganFilter(){
     // Читаем состояние веганского фильтра из URL
     const [searchParams, setSearchParams] = useSearchParams()
-    const currentIsVegan = searchParams.get('isVegan') === 'true'
+    // const currentIsVegan = searchParams.get('isVegan') === 'true'
 
-    const handleVeganFilterChange = (isVegan) => {
-        setSearchParams(prevParams => {
-            const newParams = new URLSearchParams(prevParams)
-            if(isVegan){
-                newParams.set('isVegan', 'true')
-            }else{
-                newParams.delete('isVegan')
-            }
-            newParams.set('page', '1')
-            return newParams
-        },{replace: true})
-    }
+    // const handleVeganFilterChange = (isVegan) => {
+    //     setSearchParams(prevParams => {
+    //         const newParams = new URLSearchParams(prevParams)
+    //         if(isVegan){
+    //             newParams.set('isVegan', 'true')
+    //         }else{
+    //             newParams.delete('isVegan')
+    //         }
+    //         newParams.set('page', '1')
+    //         return newParams
+    //     },{replace: true})
+    // }
 
     return(
         <div className='vegan-filter-container'>
