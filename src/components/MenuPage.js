@@ -1,28 +1,37 @@
-import react from "react"
+import React from "react"
 import axios from "axios"
 import { useState, useEffect, useCallback, useMemo } from "react"
 import DishModal from './DishModal'
 import DishList from './DishList'
-import { Pagination } from "antd"
 import { useSearchParams } from "react-router-dom" 
 import FilterSortPanel from './FilterSortPanel'
 
 function MenuPage(){
     const [dishes, setDishes] = useState([]) // состояние всех блюд
-    const [isModalOpen, setIsModalOpen] = useState(false) // состояние открытой модалки
     const [selectedDish, setSelectedDish] = useState(null) // состояние выбранного блюда
-
+    const [isModalOpen, setIsModalOpen] = useState(false) // состояние открытой модалки
     const [loading, setLoading] = useState(true) // для загрузки
     const [error, setError] = useState(null) // для ошибки
     const [searchParams, setSearchParams] = useSearchParams()
 
-    const [tempCategory, setTempCategory] = useState(searchParams.get('category') || 'Все блюда');
-    const [tempSortBy, setTempSortBy] = useState(searchParams.get('sortBy') || 'name');
-    const [tempSortOrder, setTempSortOrder] = useState(searchParams.get('sortOrder') || 'asc');
-    const [tempIsVegan, setTempIsVegan] = useState(searchParams.get('isVegan') === 'true'); // URL параметр 'true'/'false' -> boolean
-    
-    const currentPage = parseInt(searchParams.get('page') || '1', 10)
-    const currentPageSize = parseInt(searchParams.get('pageSize') || '10', 10)
+    const [tempCategory, setTempCategory] = useState(searchParams.get('category') || 'Все блюда')
+    const [tempSortBy, setTempSortBy] = useState(searchParams.get('sortBy') || 'name')
+    const [tempSortOrder, setTempSortOrder] = useState(searchParams.get('sortOrder') || 'asc')
+    const [tempIsVegan, setTempIsVegan] = useState(searchParams.get('isVegan') === 'true')
+
+    const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('page') || '1', 10));
+    const [pageSize, setPageSize] = useState(parseInt(searchParams.get('pageSize') || '10', 10));
+    const [totalDishes, setTotalDishes] = useState(0); // общее количество элементов
+
+    const handlePageChange = (page, pageSize) => {
+        setCurrentPage(page);
+        setPageSize(pageSize); // возможно, потребуется, если pageSize можно менять
+
+        const newParams = new URLSearchParams(searchParams); // копируем текущие параметры
+        newParams.set('page', page.toString()); // обновляем страницу
+        newParams.set('pageSize', pageSize.toString()); // обновляем размер страницы
+        setSearchParams(newParams, { replace: true }); // устанавливаем параметры
+    };
 
     const handleCardClick = useCallback((dish) => {
         setSelectedDish(dish)
@@ -34,7 +43,7 @@ function MenuPage(){
         setSelectedDish(null)
     }, [])
 
-    const handleApplyFilters = () => {
+    const handleApplyFilters = () => {   // обработчик кнопки Применить
         const newParams = new URLSearchParams()
         if(tempCategory !== 'Все блюда') newParams.set('category', tempCategory)
             newParams.set('sortBy', tempSortBy)
@@ -44,7 +53,7 @@ function MenuPage(){
     }
 
     useEffect(() => {
-        const API_URL = 'https://food-delivery.kreosoft.ru/api/'
+        const API_URL = 'https://food-delivery.kreosoft.ru/api/dish'
         const fetchMenu = async () => {
             try {
                 setLoading(true);
@@ -52,10 +61,13 @@ function MenuPage(){
                     category: tempCategory === 'Все блюда' ? undefined : tempCategory,
                     sortBy: tempSortBy,
                     sortOrder: tempSortOrder,
-                    isVegan: tempIsVegan
+                    page: currentPage,
+                    isVegan: tempIsVegan === 'true'
                 }
                 const response = await axios.get(API_URL, {params})
                 setDishes(response.data.dishes)
+                setTotalDishes(response.data.totalCount)
+                console.log(response.data.dishes)
 
             } catch (err) {
                 console.error('ERROR fetching menu:', err);
@@ -63,9 +75,9 @@ function MenuPage(){
             } finally {
                 setLoading(false);
             }
-        };
+        }
         fetchMenu();
-    }, [searchParams]); // Этот эффект запустится, только когда изменятся параметры в URL
+    }, [searchParams, currentPage, pageSize]) // Этот эффект запустится, только когда изменятся параметры в URL
 
     const uniqueCategories = useMemo(() => {
         const categories = new Set(dishes.map(dish => dish.category));
@@ -81,8 +93,8 @@ function MenuPage(){
 
     return (
         <div className="menu-page">
-            <h1>Меню</h1>
             <FilterSortPanel
+                categories={uniqueCategories}
                 tempCategory={tempCategory}
                 setTempCategory={setTempCategory}
                 tempSortBy={tempSortBy}
@@ -93,11 +105,17 @@ function MenuPage(){
                 setTempIsVegan={setTempIsVegan}
                 handleApplyFilters={handleApplyFilters}
             />
-            <DishList dishes={dishes} onCardClick={handleCardClick}
+            <DishList 
+                dishes={dishes} 
+                onDishClick={handleCardClick} 
+                currentPage={currentPage} 
+                pageSize={pageSize} 
+                totalDishes={totalDishes} 
+                onPageChange={handlePageChange}
             />
             <DishModal isOpen={isModalOpen} dish={selectedDish} onClose={handleCloseModal} />
         </div>
-    );
+    )
 }
 
 export default MenuPage

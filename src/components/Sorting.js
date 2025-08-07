@@ -1,4 +1,4 @@
-import react from 'react';
+import React from 'react';
 import { Select } from 'antd';
 
 const { Option, OptionGroup } = Select
@@ -69,5 +69,5 @@ function Sorting({sortBy, sortOrder, onSortChange}) {
     )  
 }
 
-export default Sorting;
+export default Sorting
 

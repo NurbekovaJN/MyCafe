@@ -1,4 +1,4 @@
-import react from "react"
+import React from "react"
 
 function CategoryFilter({activeCategory, onSelectCategory, categories}){ 
     

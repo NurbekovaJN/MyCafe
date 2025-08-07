@@ -1,8 +1,8 @@
-import react from 'react';
+import React from 'react';
 import { Switch } from 'antd';
 
 
-function VeganFilter({isVegan, onToggleVegan}){
+function VeganSwitch({isVegan, onToggleVegan}){
 
     const handleVeganFilterChange = (checked) => {
         onToggleVegan(checked)
@@ -10,10 +10,10 @@ function VeganFilter({isVegan, onToggleVegan}){
 
     return(
         <div className='vegan-filter-container'>
-            <Switch checked={isVegan} onChange={(e) => handleVeganFilterChange(e.target.checked)}/>
+            <Switch checked={isVegan} onChange={handleVeganFilterChange}/>
             <p>Показать только вегетерианское</p>
         </div>
     )
 }
 
-export default VeganFilter
+export default VeganSwitch

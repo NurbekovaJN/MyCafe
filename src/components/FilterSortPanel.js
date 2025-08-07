@@ -1,9 +1,10 @@
-import react from "react";
+import React from "react";
 import CategoryFilter from "./CategoryFilter";
-import VeganFilter from "./VeganFilter";
-import Sorting from "./Sorting";
+import VeganSwitch from "./VeganSwitch";
+// import Sorting from './Sorting'
 
-function FilterSort({
+function FilterSortPanel({
+    categories,
     tempCategory, 
     setTempCategory, 
     tempSortBy, 
@@ -17,18 +18,19 @@ function FilterSort({
     return (
         <div className="filter-sort-container">
             <CategoryFilter 
+                categories={categories}
                 activeCategory={tempCategory}
                 onSelectCategory={setTempCategory}
             />
-            <Sorting
+            {/* <Sorting
                 sortBy={tempSortBy}
                 sortOrder={tempSortOrder}
                 onSortChange={(by, order) => {
                     setTempSortBy(by)
                     setTempSortOrder(order)
                 }}
-            />
-            <VeganFilter
+            /> */}
+            <VeganSwitch
                 isVegan={tempIsVegan}
                 onToggleVegan={setTempIsVegan}
             />
@@ -37,4 +39,4 @@ function FilterSort({
     )
 }
 
-export default FilterSort
+export default FilterSortPanel

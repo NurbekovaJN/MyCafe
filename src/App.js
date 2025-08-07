@@ -5,6 +5,7 @@ import MenuPage from './components/MenuPage'
 import CategoryFilter from './components/CategoryFilter';
 import DishModal from './components/DishModal';
 import Footer from './components/Footer';
+// import 'antd/dist/reset.css'
 
 function App() {
   return (
