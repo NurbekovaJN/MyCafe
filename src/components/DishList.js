@@ -2,7 +2,7 @@ import DishCard from './DishCard'
 import { Pagination } from 'antd';
 
 
-function DishList({dishes, onDishClick, currentPage, pageSize, totalDishes, onPageChange}){ // передаем пропсы с компонента FilterSortPanel
+function DishList({dishes, onDishClick, currentPage, pageSize, totalDishes, onPageChange}){ // пропсы с FilterSortPanel
     if(dishes.length === 0){ 
         return <div className="no-dishes-message">Блюд в этой категории нет</div>
     }

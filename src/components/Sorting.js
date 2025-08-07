@@ -3,7 +3,7 @@ import { Select } from 'antd';
 
 const { Option, OptionGroup } = Select
 
-function Sorting({sortBy, sortOrder, onSortChange}) {
+function Sorting({sortBy, sortOrder, onSortChange}) { // пропсы FilterSortPanel
 
     const handleSortChange = value => {
         let by = ''

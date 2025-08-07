@@ -1,6 +1,6 @@
 import React from "react"
 
-function CategoryFilter({activeCategory, onSelectCategory, categories}){ 
+function CategoryFilter({activeCategory, onSelectCategory, categories}){ // пропсы с FilterSortPanel
     
     const handleCategorySelect = (category) => {
         onSelectCategory(category)
