@@ -9,8 +9,8 @@ function DishList({dishes, onDishClick, currentPage, pageSize, totalDishes, onPa
     return(
         <div className="dishes-container">
             <ul className="dishes">
-                {dishes.map(dish => ( // преобразуем каждое блюдо в массиве всех блюд
-                    <DishCard key={dish.id} dish={dish} onClick={() => onDishClick(dish)}/> // передаем компонент для отображения карточки блюда с информацией, а так же в аттрибуте передаем обработчик клика по карточке 
+                {dishes.map(dish => ( 
+                    <DishCard key={dish.id} dish={dish} onClick={() => onDishClick(dish)}/> 
                 ))}
             </ul>
             <div className="pagination">

@@ -10,8 +10,8 @@ function MenuPage(){
     const [dishes, setDishes] = useState([]) // состояние всех блюд
     const [selectedDish, setSelectedDish] = useState(null) // состояние выбранного блюда
     const [isModalOpen, setIsModalOpen] = useState(false) // состояние открытой модалки
-    const [loading, setLoading] = useState(true) // для загрузки
-    const [error, setError] = useState(null) // для ошибки
+    const [loading, setLoading] = useState(true) 
+    const [error, setError] = useState(null) 
     const [searchParams, setSearchParams] = useSearchParams()
 
     const [tempCategory, setTempCategory] = useState(searchParams.get('category') || 'Все блюда')
@@ -19,18 +19,18 @@ function MenuPage(){
     const [tempSortOrder, setTempSortOrder] = useState(searchParams.get('sortOrder') || 'asc')
     const [tempIsVegan, setTempIsVegan] = useState(searchParams.get('isVegan') === 'true')
 
-    const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('page') || '1', 10));
-    const [pageSize, setPageSize] = useState(parseInt(searchParams.get('pageSize') || '10', 10));
-    const [totalDishes, setTotalDishes] = useState(0); // общее количество элементов
+    const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('page') || '1', 10)) // текущая страница
+    const [pageSize, setPageSize] = useState(parseInt(searchParams.get('pageSize') || '10', 10)) // количество блюд на странице
+    const [totalDishes, setTotalDishes] = useState(0) // общее количество элементов
 
-    const handlePageChange = (page, pageSize) => {
-        setCurrentPage(page);
-        setPageSize(pageSize); // возможно, потребуется, если pageSize можно менять
+    const handlePageChange = (page, pageSize) => { 
+        setCurrentPage(page)
+        setPageSize(pageSize) // возможно, потребуется, если pageSize можно менять
 
-        const newParams = new URLSearchParams(searchParams); // копируем текущие параметры
-        newParams.set('page', page.toString()); // обновляем страницу
-        newParams.set('pageSize', pageSize.toString()); // обновляем размер страницы
-        setSearchParams(newParams, { replace: true }); // устанавливаем параметры
+        const newParams = new URLSearchParams(searchParams) // копируем текущие параметры
+        newParams.set('page', page.toString()) // обновляем страницу
+        newParams.set('pageSize', pageSize.toString()) // обновляем размер страницы
+        setSearchParams(newParams, { replace: true }) // устанавливаем параметры
     };
 
     const handleCardClick = useCallback((dish) => {
@@ -49,6 +49,8 @@ function MenuPage(){
             newParams.set('sortBy', tempSortBy)
             newParams.set('sortOrder', tempSortOrder)
             newParams.set('isVegan', tempIsVegan)
+            newParams.set('page', currentPage.toString())
+            newParams.set('pageSize', pageSize.toString())
             setSearchParams(newParams, {replace: true})
     }
 
@@ -62,7 +64,8 @@ function MenuPage(){
                     sortBy: tempSortBy,
                     sortOrder: tempSortOrder,
                     page: currentPage,
-                    isVegan: tempIsVegan === 'true'
+                    pageSize: pageSize,
+                    isVegan: tempIsVegan === true
                 }
                 const response = await axios.get(API_URL, {params})
                 setDishes(response.data.dishes)
@@ -76,8 +79,8 @@ function MenuPage(){
                 setLoading(false);
             }
         }
-        fetchMenu();
-    }, [searchParams, currentPage, pageSize]) // Этот эффект запустится, только когда изменятся параметры в URL
+        fetchMenu()
+    }, [searchParams, currentPage, pageSize, tempCategory, tempSortBy, tempSortOrder, tempIsVegan]) // Этот эффект запустится, только когда изменятся параметры в URL
 
     const uniqueCategories = useMemo(() => {
         const categories = new Set(dishes.map(dish => dish.category));
