@@ -3,7 +3,8 @@ import axios from "axios";
 import { useState, useEffect } from 'react'
 import { useSearchParams } from "react-router-dom";
 
-function UseMenuData(){
+function useMenuData(){
+    
     const [dishes, setDishes] = useState([]) // состояние всех блюд
     const [loading, setLoading] = useState(true) 
     const [error, setError] = useState(null) 
@@ -66,4 +67,4 @@ function UseMenuData(){
     
 }
 
-export default UseMenuData
+export default useMenuData

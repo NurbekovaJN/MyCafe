@@ -1,7 +1,8 @@
 import { Rate } from "antd"
 import { Link } from "react-router-dom"
 
-function DishCard({dish, onClick }){ // передаем пропсы из компонента MenuPage
+function DishCard({dish, onClick, onClose }){ // передаем пропсы из компонента MenuPage
+
     return (
         <li className="dish" key={dish.id} onClick={onClick}>  
             <div className="dish-img">
@@ -25,4 +26,3 @@ function DishCard({dish, onClick }){ // передаем пропсы из ко�
 }
 
 export default DishCard
-

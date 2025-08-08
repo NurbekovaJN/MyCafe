@@ -1,10 +1,10 @@
 import React from 'react';
 import { Select } from 'antd';
 
-const { Option, OptionGroup } = Select
 
 function Sorting({sortBy, sortOrder, onSortChange}) { // пропсы FilterSortPanel
-
+    const { Option, OptGroup } = Select
+    
     const handleSortChange = value => {
         let by = ''
         let order = ''
@@ -46,25 +46,25 @@ function Sorting({sortBy, sortOrder, onSortChange}) { // пропсы FilterSort
         <div className='sorting'>
             <label htmlFor="sort-select">Сортировать по: </label>
             <Select
-                defaultValue={currentValue}
+                value={currentValue}
                 style={{ width: 200, textAlign: 'left' }}
                 onChange={handleSortChange}
             />
 
-            <OptionGroup label="По цене">
+            <OptGroup label="По цене">
                 <Option value="priceAsc">Дороже</Option>
                 <Option value="priceDesc">Дешевле</Option>
-            </OptionGroup>
+            </OptGroup>
 
-            <OptionGroup label="По рейтингу">
+            <OptGroup label="По рейтингу">
                 <Option value="ratingAsc">Выше</Option>
                 <Option value="ratingDesc">Ниже</Option>
-            </OptionGroup>
+            </OptGroup>
 
-            <OptionGroup label="По названию">
+            <OptGroup label="По названию">
                 <Option value="nameAsc">А-Я</Option>
                 <Option value="nameDesc">Я-А</Option>
-            </OptionGroup>
+            </OptGroup>
         </div>
     )  
 }

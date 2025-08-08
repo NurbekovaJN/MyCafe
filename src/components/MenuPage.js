@@ -1,15 +1,12 @@
 import React from "react"
 import { useState, useCallback, useMemo } from "react"
-import DishModal from './DishModal'
 import { useSearchParams, useNavigate } from "react-router-dom" 
 import Menu from "./Menu"
-import UseMenuData from "./UseMenuData"
+import useMenuData from "./UseMenuData"
 import FilterOptions from "./FilterOptions"
+import DishModalFunction from "./DishModalFunction"
 
 function MenuPage(){
-    const [selectedDish, setSelectedDish] = useState(null) // состояние выбранного блюда
-    const [isModalOpen, setIsModalOpen] = useState(false) // состояние открытой модалки
-
     const { 
         dishes,
         loading,
@@ -25,22 +22,11 @@ function MenuPage(){
         setTempIsVegan,
         currentPage,
         pageSize,
-    } = UseMenuData()  // Используем хук для получения данных и состояния
+    } = useMenuData()  // Используем кастомный хук для получения данных о блюдах, состоянии загрузки/ошибки, общего количества блюд и текущих параметров фильтрации/сортировки
     
-    const navigate = useNavigate();
-    const [searchParams] = useSearchParams()
-
-    const handleApplyFilters = () => {   // обработчик кнопки Применить
-        const newParams = new URLSearchParams()
-        if(tempCategory !== 'Все блюда') newParams.set('category', tempCategory)
-            newParams.set('sortBy', tempSortBy)
-            newParams.set('sortOrder', tempSortOrder)
-            newParams.set('isVegan', tempIsVegan)
-            newParams.set('page', currentPage.toString())
-            newParams.set('pageSize', pageSize.toString())
-            // Перенаправляем пользователя с новыми параметрами запроса
-            navigate(`?${newParams.toString()}`, { replace: true }) 
-    }
+    const navigate = useNavigate() // предоставляет ункцию navigate для программного перенаправления пользователя по url
+    const [searchParams] = useSearchParams() // Предоставляет доступ к параметрам запроса в URL.  В данном случае используется только для чтения (searchParams), но не для изменения.
+    const [selectedDish, setSelectedDish] = useState(null) // состояние выбранного блюда для модального окна
 
     const handlePageChange = (page, pageSize) => { 
         const newParams = new URLSearchParams(searchParams) // копируем текущие параметры
@@ -51,12 +37,6 @@ function MenuPage(){
 
     const handleCardClick = useCallback((dish) => {
         setSelectedDish(dish)
-        setIsModalOpen(true)
-    }, [])
-
-    const handleCloseModal = useCallback(() => {
-        setIsModalOpen(false)
-        setSelectedDish(null)
     }, [])
 
     const uniqueCategories = useMemo(() => {
@@ -78,12 +58,14 @@ function MenuPage(){
                 tempCategory={tempCategory}
                 setTempCategory={setTempCategory}
                 tempSortBy={tempSortBy}
-                etTempSortBy={setTempSortBy}
+                setTempSortBy={setTempSortBy}
                 tempSortOrder={tempSortOrder}
                 setTempSortOrder={setTempSortOrder}
                 tempIsVegan={tempIsVegan}
                 setTempIsVegan={setTempIsVegan}
-                handleApplyFilters={handleApplyFilters}
+                navigate={navigate}
+                currentPage={currentPage}
+                pageSize={pageSize}
             />
             <Menu
                 dishes={dishes}
@@ -93,7 +75,9 @@ function MenuPage(){
                 totalDishes={totalDishes}
                 onPageChange={handlePageChange}
             />
-            <DishModal isOpen={isModalOpen} dish={selectedDish} onClose={handleCloseModal} />
+            <DishModalFunction dish={selectedDish} onClose={() => {
+                setSelectedDish(null)
+            }}/>
         </div>
     )
 }
@@ -102,3 +86,24 @@ export default MenuPage
 
 
 
+// В самом сортинге тоже немного проблемно
+// Сейчас OptionGroup и Option стоят вне Select, из-за этого селект пустой. Ещё в AntD компонент называется OptGroup, а не OptionGroup
+
+// И лучше сделать контролируемое значение value, а не defaultValue.
+
+// Также по юзМенюДата и почему не обновляется содержимое
+// Есть state temp* и есть searchParams. Ты меняешь URL, но локальные стейты не синхронизируешь обратно из URL, поэтому fetchMenu продолжает дергать API со старыми temp*
+
+// Синхронизируй локальные стейты с URL
+// Добавь ЮзЭффект, который на каждое изменение searchParams перезаписывает temp* и пагинацию:
+
+// В MenuPage при нажатии применить лучше сбрасывать страницу на 1, и не записывать лишние данные по пагинации текущей
+
+
+// Это компонент страницы меню, он отвечает за...
+// 1 - получение данных, получает список блюд, общее количество блюд, состояние загрузки/ошибки и текущие параметры фильтрации/сортировки из хука UseMenuData
+// 2 - отображает список блюд
+// 3 - отображает компоненты фильтрации/сортировки (FilterSortOptions)
+// 4 - пагинацию
+// 5 - отображает модальное окно
+// 6 - обновляет параметры в url при изменении фильтров, сортировки или страницы

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom"
 import { Rate } from "antd"
 
-function DishModal({isOpen, dish, onClose}){ // передаем пропсы из компоненты MenuPage
+function DishModal({isOpen, dish, onClose}){ 
+    
     if(!isOpen){ 
         return null 
     }
