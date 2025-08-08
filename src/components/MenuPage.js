@@ -1,10 +1,9 @@
 import React from "react"
-import { useState, useCallback, useMemo } from "react"
+import { useMemo } from "react"
 import { useSearchParams, useNavigate } from "react-router-dom" 
-import Menu from "./Menu"
 import useMenuData from "./UseMenuData"
-import FilterOptions from "./FilterOptions"
-import DishModalFunction from "./DishModalFunction"
+import DishList from "./DishList"
+import FilterSortPanel from "./FilterSortPanel"
 
 function MenuPage(){
     const { 
@@ -26,7 +25,6 @@ function MenuPage(){
     
     const navigate = useNavigate() // предоставляет ункцию navigate для программного перенаправления пользователя по url
     const [searchParams] = useSearchParams() // Предоставляет доступ к параметрам запроса в URL.  В данном случае используется только для чтения (searchParams), но не для изменения.
-    const [selectedDish, setSelectedDish] = useState(null) // состояние выбранного блюда для модального окна
 
     const handlePageChange = (page, pageSize) => { 
         const newParams = new URLSearchParams(searchParams) // копируем текущие параметры
@@ -35,13 +33,9 @@ function MenuPage(){
         navigate(`?${newParams.toString()}`, { replace: true }) // устанавливаем параметры
     }
 
-    const handleCardClick = useCallback((dish) => {
-        setSelectedDish(dish)
-    }, [])
-
     const uniqueCategories = useMemo(() => {
-        const categories = new Set(dishes.map(dish => dish.category));
-        return ['Все блюда', ...Array.from(categories)];
+        const categories = new Set(dishes.map(dish => dish.category)) // получаем список уникальных категорий блюд и сохраняем в массиве 
+        return ['Все блюда', ...Array.from(categories)] 
     }, [dishes]) // Пересчитываем только при изменении списка блюд
 
     if (loading) {
@@ -52,8 +46,9 @@ function MenuPage(){
     }
 
     return (
+        // Передаем все пропсы в дочерние компоненты
         <div className="menu-page">
-            <FilterOptions
+            <FilterSortPanel
                 categories={uniqueCategories}
                 tempCategory={tempCategory}
                 setTempCategory={setTempCategory}
@@ -67,24 +62,18 @@ function MenuPage(){
                 currentPage={currentPage}
                 pageSize={pageSize}
             />
-            <Menu
+            <DishList
                 dishes={dishes}
-                onDishClick={handleCardClick}
                 currentPage={currentPage}
                 pageSize={pageSize}
                 totalDishes={totalDishes}
                 onPageChange={handlePageChange}
             />
-            <DishModalFunction dish={selectedDish} onClose={() => {
-                setSelectedDish(null)
-            }}/>
         </div>
     )
 }
 
 export default MenuPage
-
-
 
 // В самом сортинге тоже немного проблемно
 // Сейчас OptionGroup и Option стоят вне Select, из-за этого селект пустой. Ещё в AntD компонент называется OptGroup, а не OptionGroup

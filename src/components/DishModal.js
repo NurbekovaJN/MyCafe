@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom"
 import { Rate } from "antd"
 
-function DishModal({isOpen, dish, onClose}){ 
-    
+function DishModal({isOpen, dish, onClose}){ // пропсы из DishList
     if(!isOpen){ 
         return null 
     }

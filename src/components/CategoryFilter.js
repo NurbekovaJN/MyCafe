@@ -1,8 +1,10 @@
 import React from "react"
 
+// CategoryFilter отображает список кнопок с различными категориями для фильтрации 
+
 function CategoryFilter({activeCategory, onSelectCategory, categories}){ // пропсы с FilterSortPanel
     
-    const handleCategorySelect = (category) => {
+    const handleCategorySelect = (category) => { // ообработчик для выбора категории
         onSelectCategory(category)
     }
     
@@ -25,5 +27,11 @@ function CategoryFilter({activeCategory, onSelectCategory, categories}){ // пр
 }
 
 export default CategoryFilter
+
+// Компонент CategoryFilter получает список категорий (categories), текущую выбранную категорию (activeCategory) и функцию для обработки выбора категории (onSelectCategory) из родительского компонента (FilterSortPanel).
+// Он отображает список кнопок для каждой категории.
+// При нажатии на кнопку вызывается функция handleCategorySelect, которая, в свою очередь, вызывает функцию onSelectCategory (из родительского компонента) и передает ей выбранную категорию.
+// Родительский компонент (FilterSortPanel) получает уведомление о выборе новой категории и обновляет состояние приложения, например, запрашивает новые данные из API.
+// Компонент CategoryFilter перерисовывается с новой выбранной категорией, подсвечивая соответствующую кнопку.
 
 
