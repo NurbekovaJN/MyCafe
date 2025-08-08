@@ -1,30 +1,54 @@
 import React from "react"
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { useSearchParams, useNavigate } from "react-router-dom" 
 import useMenuData from "./UseMenuData"
 import DishList from "./DishList"
 import FilterSortPanel from "./FilterSortPanel"
 
 function MenuPage(){
-    const { 
+    const navigate = useNavigate() // предоставляет ункцию navigate для программного перенаправления пользователя по url
+    const [searchParams] = useSearchParams() // Предоставляет доступ к параметрам запроса в URL.  В данном случае используется только для чтения (searchParams), но не для изменения.
+
+        // Локальное состояние для хранения временных значений фильтров и сортировки
+    const [tempCategory, setTempCategory] = useState(searchParams.get('category') || 'Все блюда');
+    const [tempSortBy, setTempSortBy] = useState(searchParams.get('sortBy') || 'name');
+    const [tempSortOrder, setTempSortOrder] = useState(searchParams.get('sortOrder') || 'asc');
+    const [tempIsVegan, setTempIsVegan] = useState(searchParams.get('isVegan') === 'true');
+    
+    const {
         dishes,
         loading,
         error,
         totalDishes,
-        tempCategory,
-        setTempCategory,
-        tempSortBy,
-        setTempSortBy,
-        tempSortOrder,
-        setTempSortOrder,
-        tempIsVegan,
-        setTempIsVegan,
         currentPage,
         pageSize,
-    } = useMenuData()  // Используем кастомный хук для получения данных о блюдах, состоянии загрузки/ошибки, общего количества блюд и текущих параметров фильтрации/сортировки
-    
-    const navigate = useNavigate() // предоставляет ункцию navigate для программного перенаправления пользователя по url
-    const [searchParams] = useSearchParams() // Предоставляет доступ к параметрам запроса в URL.  В данном случае используется только для чтения (searchParams), но не для изменения.
+    } = useMenuData( // Используем кастомный хук для получения данных о блюдах, состоянии загрузки/ошибки, общего количества блюд
+        searchParams.get('category') || 'Все блюда',
+        searchParams.get('sortBy') || 'name',
+        searchParams.get('sortOrder') || 'asc',
+        searchParams.get('isVegan') === 'true',
+        searchParams.get('page') || 1,
+        searchParams.get('pageSize') || 8
+    )
+
+    const applyFilters = () => {
+        const newParams = new URLSearchParams();
+
+        if (tempCategory !== 'Все блюда') {
+            newParams.set('category', tempCategory);
+        }
+        newParams.set('sortBy', tempSortBy);
+        newParams.set('sortOrder', tempSortOrder);
+        newParams.set('isVegan', tempIsVegan);
+
+        // Сохраняем текущую страницу и размер страницы
+        const currentPage = searchParams.get('page') || 1;
+        const pageSize = searchParams.get('pageSize') || 8;
+        newParams.set('page', currentPage);
+        newParams.set('pageSize', pageSize);
+
+        navigate(`?${newParams.toString()}`, { replace: true }) // Перенаправляем пользователя с новыми параметрами
+    }
 
     const handlePageChange = (page, pageSize) => { 
         const newParams = new URLSearchParams(searchParams) // копируем текущие параметры
@@ -61,6 +85,7 @@ function MenuPage(){
                 navigate={navigate}
                 currentPage={currentPage}
                 pageSize={pageSize}
+                applyFilters={applyFilters}
             />
             <DishList
                 dishes={dishes}
@@ -88,11 +113,3 @@ export default MenuPage
 
 // В MenuPage при нажатии применить лучше сбрасывать страницу на 1, и не записывать лишние данные по пагинации текущей
 
-
-// Это компонент страницы меню, он отвечает за...
-// 1 - получение данных, получает список блюд, общее количество блюд, состояние загрузки/ошибки и текущие параметры фильтрации/сортировки из хука UseMenuData
-// 2 - отображает список блюд
-// 3 - отображает компоненты фильтрации/сортировки (FilterSortOptions)
-// 4 - пагинацию
-// 5 - отображает модальное окно
-// 6 - обновляет параметры в url при изменении фильтров, сортировки или страницы

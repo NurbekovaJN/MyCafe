@@ -40,16 +40,16 @@ function Sorting({sortBy, sortOrder, onSortChange}) { // пропсы FilterSort
         onSortChange(by, order)
     }
 
-    const currentValue = sortBy && sortOrder ? `${sortBy}${sortOrder.charAt(0).toUpperCase() + sortOrder.slice(1)}` : undefined;
+    // const currentValue = sortBy && sortOrder ? `${sortBy}${sortOrder.charAt(0).toUpperCase() + sortOrder.slice(1)}` : undefined;
 
     return (
         <div className='sorting'>
             <label htmlFor="sort-select">Сортировать по: </label>
             <Select
-                value={currentValue}
+                value='По цене'
                 style={{ width: 200, textAlign: 'left' }}
                 onChange={handleSortChange}
-            />
+            >
 
             <OptGroup label="По цене">
                 <Option value="priceAsc">Дороже</Option>
@@ -65,6 +65,9 @@ function Sorting({sortBy, sortOrder, onSortChange}) { // пропсы FilterSort
                 <Option value="nameAsc">А-Я</Option>
                 <Option value="nameDesc">Я-А</Option>
             </OptGroup>
+
+            </Select>
+
         </div>
     )  
 }
