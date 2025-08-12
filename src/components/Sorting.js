@@ -50,7 +50,6 @@ function Sorting({sortBy, sortOrder, onSortChange}) { // пропсы FilterSort
                 style={{ width: 200, textAlign: 'left' }}
                 onChange={handleSortChange}
             >
-
             <OptGroup label="По цене">
                 <Option value="priceAsc">Дороже</Option>
                 <Option value="priceDesc">Дешевле</Option>
@@ -65,9 +64,7 @@ function Sorting({sortBy, sortOrder, onSortChange}) { // пропсы FilterSort
                 <Option value="nameAsc">А-Я</Option>
                 <Option value="nameDesc">Я-А</Option>
             </OptGroup>
-
             </Select>
-
         </div>
     )  
 }

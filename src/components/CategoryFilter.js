@@ -28,7 +28,7 @@ function CategoryFilter({tempCategory, onSelectCategory, categories}){ // про
 
 export default CategoryFilter
 
-// Компонент CategoryFilter получает список категорий (categories), текущую выбранную категорию (activeCategory) и функцию для обработки выбора категории (onSelectCategory) из родительского компонента (FilterSortPanel).
+// Компонент CategoryFilter получает список категорий (categories), текущую выбранную категорию (tempCategory) и функцию для обработки выбора категории (onSelectCategory) из родительского компонента (FilterSortPanel).
 // Он отображает список кнопок для каждой категории.
 // При нажатии на кнопку вызывается функция handleCategorySelect, которая, в свою очередь, вызывает функцию onSelectCategory (из родительского компонента) и передает ей выбранную категорию.
 // Родительский компонент (FilterSortPanel) получает уведомление о выборе новой категории и обновляет состояние приложения, например, запрашивает новые данные из API.

@@ -10,6 +10,7 @@ function DishModal({isOpen, dish, onClose}){ // пропсы из DishList
     }
 
     return(
+        // отображение модального окна с подробной информацией о блюде
         <div className="modal-overlay" onClick={onClose}> 
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
 
@@ -36,7 +37,7 @@ function DishModal({isOpen, dish, onClose}){ // пропсы из DishList
                 <img src='image/close.png' className="close-modal-icon" onClick={onClose}/> 
             </div>
         </div>
-    ) // отображение модального окна с подробной информацией о блюде
+    ) 
 } 
 
 export default DishModal

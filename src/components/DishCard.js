@@ -1,9 +1,10 @@
 import { Rate } from "antd"
 import { Link } from "react-router-dom"
 
-function DishCard({dish, onClick }){ // передаем пропсы из компонента MenuPage
+function DishCard({dish, onClick }){ // передаем пропсы из компонента DishList
 
     return (
+        // отображение карточки с подробной информацией о блюде
         <li className="dish" key={dish.id} onClick={onClick}>  
             <div className="dish-img">
                 <div className="vegan-icon-container">{dish.vegetarian && (<img src="image/vegan.png" alt="vegan" className="vegan-icon"/>)}</div> 
@@ -27,7 +28,7 @@ function DishCard({dish, onClick }){ // передаем пропсы из ко�
                     <button className="buyButton">В корзину</button>
                 </Link>
             </div>
-        </li> // отрисовываем карточку с информацией о блюде
+        </li> 
     )
 }
 

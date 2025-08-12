@@ -26,8 +26,6 @@ function App() {
 
       <Routes>
         <Route path='' element={<MenuPage/>}></Route>
-        <Route path='/:categoryId' element={<CategoryFilter/>}></Route>
-        <Route path='/:dishId' element={<DishModal/>}></Route>
       </Routes>
       <Footer/>
     </div>

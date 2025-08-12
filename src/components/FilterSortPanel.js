@@ -1,6 +1,6 @@
 import React from "react";
-import CategoryFilter from "./CategoryFilter";
-import VeganSwitch from "./VeganSwitch";
+import CategoryFilter from "./CategoryFilter"
+import VeganSwitch from "./VeganSwitch"
 import Sorting from './Sorting'
 
 
@@ -14,7 +14,6 @@ function FilterSortPanel({
     setTempSortOrder,
     tempIsVegan,
     setTempIsVegan,
-    // navigate,
     applyFilters
 }) {
 
