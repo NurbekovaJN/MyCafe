@@ -2,17 +2,17 @@ import React from "react"
 
 // CategoryFilter отображает список кнопок с различными категориями для фильтрации 
 
-function CategoryFilter({tempCategory, onSelectCategory, categories}){ // пропсы с FilterSortPanel
+function CategoryFilter({activeCategory, onSelectCategory, categories}){ // пропсы с FilterSortPanel
     
     const handleCategorySelect = (category) => { // ообработчик для выбора категории
         onSelectCategory(category)
     }
-    
+    const allCategories = ['Все блюда', 'Pizza', 'Wok', 'Soup', 'Dessert', 'Drink']
     if(categories !== undefined){
         return(
             <div className="category-filter">
-                {categories.map(category => ( // преобразуем каждую категорию в массиве категории
-                    <button key={category} className={`category-button ${tempCategory === category 
+                {allCategories.map(category => ( // преобразуем каждую категорию в массиве категории
+                    <button key={category} className={`category-button ${activeCategory === category 
                         ? 'active' : ''}`} onClick={() => handleCategorySelect(category)}>
                             {category}
                     </button>

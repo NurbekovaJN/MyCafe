@@ -30,10 +30,10 @@ function useMenuData(){
                     // sortOrder: sortOrder,
                     page: currentPage,
                     pageSize: pageSize,
-                    vegeterian: isVegan,
+                    vegetarian: isVegan,
                 }
                 const cleanParams = Object.fromEntries(
-                    Object.entries(params).filter(([_, v]) => v != null && v !== "")
+                    Object.entries(params).filter(([_, v]) => v != null && v !== '' && 'null')
                 );
                 const sParams = new URLSearchParams(cleanParams).toString()
                 console.log(sParams)

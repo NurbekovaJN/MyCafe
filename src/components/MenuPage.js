@@ -26,13 +26,16 @@ function MenuPage(){
         
     const applyFilters = () => {
         const newParams = new URLSearchParams()
+        // if(tempIsVegan){
+            
+        // }
 
         if (tempCategory !== 'Все блюда') {
             newParams.set('category', tempCategory)
         }
-        newParams.set('sortBy', tempSortBy)
-        newParams.set('sortOrder', tempSortOrder)
-        newParams.set('isVegan', tempIsVegan.toString())
+        newParams.set('sortBy', tempSortBy + tempSortOrder)
+        // newParams.set('sortOrder', tempSortOrder)
+        newParams.set('isVegan', tempIsVegan)
         newParams.set('page', '1')
 
         navigate(`?${newParams.toString()}`, { replace: true }) // Перенаправляем пользователя с новыми параметрами
