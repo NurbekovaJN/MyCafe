@@ -47,7 +47,7 @@ function Sorting({sortBy, sortOrder, onSortChange}) { // пропсы FilterSort
             <label htmlFor="sort-select">Сортировать по: </label>
             <Select
                 value='По цене'
-                style={{ width: 200, textAlign: 'left' }}
+                style={{ width: 150, textAlign: 'left' }}
                 onChange={handleSortChange}
             >
             <OptGroup label="По цене">

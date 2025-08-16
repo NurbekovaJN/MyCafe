@@ -11,7 +11,7 @@ function VeganSwitch({isVegan, onToggleVegan}){
     return(
         <div className='vegan-filter-container'>
             <Switch checked={isVegan} onChange={handleVeganFilterChange}/>
-            <p>Показать только вегетерианское</p>
+            <p className='vegan-p'>Показать только вегетерианское</p>
         </div>
     )
 }

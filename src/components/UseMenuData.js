@@ -33,7 +33,7 @@ function useMenuData(){
                     vegetarian: isVegan,
                 }
                 const cleanParams = Object.fromEntries(
-                    Object.entries(params).filter(([_, v]) => v != null && v !== '' && 'null')
+                    Object.entries(params).filter(([_, v]) => v != null && v !== '' && v !== 'null')
                 );
                 const sParams = new URLSearchParams(cleanParams).toString()
                 console.log(sParams)
