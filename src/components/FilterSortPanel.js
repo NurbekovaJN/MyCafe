@@ -14,7 +14,8 @@ function FilterSortPanel({
     setTempSortOrder,
     tempIsVegan,
     setTempIsVegan,
-    applyFilters
+    applyFilters,
+    sortingName
 }) {
 
     return (
@@ -27,6 +28,7 @@ function FilterSortPanel({
             <Sorting
                 sortBy={tempSortBy}
                 sortOrder={tempSortOrder}
+                sortingName={sortingName}
                 onSortChange={(by, order) => {
                     setTempSortBy(by)
                     setTempSortOrder(order)
@@ -36,7 +38,7 @@ function FilterSortPanel({
                 isVegan={tempIsVegan}
                 onToggleVegan={setTempIsVegan}
             />
-            <button onClick={applyFilters} className="apply-button">Применить</button>
+            <button onClick={applyFilters} className="apply-button" type="button">Применить</button>
         </div> 
     )
 }

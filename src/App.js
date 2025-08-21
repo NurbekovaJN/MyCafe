@@ -13,7 +13,7 @@ function App() {
       <nav>
         <div className='nav-links'>
         <img src="./image/chef-hat-heart-broken.png" alt="logo" className='logo'/>
-          <Link to=''>Меню</Link>
+          <Link to='/'>Меню</Link>
           <Link to=''>Заказы</Link>
           <Link to=''>Корзина</Link>
         </div>
@@ -25,7 +25,7 @@ function App() {
       </nav>
 
       <Routes>
-        <Route path='' element={<MenuPage/>}></Route>
+        <Route path='/' element={<MenuPage/>}></Route>
       </Routes>
       <Footer/>
     </div>

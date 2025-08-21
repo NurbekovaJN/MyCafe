@@ -1,7 +1,6 @@
 import React from "react"
 import { Select, Space } from 'antd';
 
-
 // CategoryFilter отображает список кнопок с различными категориями для фильтрации 
 
 function CategoryFilter({activeCategory, onSelectCategory, categories}){ // пропсы с FilterSortPanel
@@ -20,17 +19,11 @@ function CategoryFilter({activeCategory, onSelectCategory, categories}){ // пр
                 <label htmlFor="category-select">Категории: </label>
                 <Select
                     value={activeCategory}
-                    style={{width: '200'}}
+                    style={{width: '200px'}}
                     onChange={handleCategorySelect}
                     options={options}
                     placeholder='Выберите категорию блюд'
                 />
-                {/* {allCategories.map(category => ( // преобразуем каждую категорию в массиве категории
-                    <button key={category} className={`category-button ${activeCategory === category 
-                        ? 'active' : ''}`} onClick={() => handleCategorySelect(category)}>
-                            {category}
-                    </button>
-                ))} */}
             </div> 
         )
     }

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Select } from 'antd';
+import { useState, useEffect } from 'react';
 
 
-function Sorting({sortBy, sortOrder, onSortChange}) { // пропсы FilterSortPanel
+function Sorting({sortBy, sortOrder, onSortChange, sortingName}) { // пропсы FilterSortPanel
     const { Option, OptGroup } = Select
-    
+    const [names, setNames] = useState()
+
     const handleSortChange = value => {
         let by = ''
         let order = ''
@@ -12,7 +14,8 @@ function Sorting({sortBy, sortOrder, onSortChange}) { // пропсы FilterSort
         switch(value){
             case 'priceAsc':
                 by = 'price'
-                order = 'asc'
+                order = 'asc' // сменить на заглавную букву
+                setNames('По возрастанию цены')
                 break
             case 'priceDesc':
                 by = 'price'
@@ -37,32 +40,33 @@ function Sorting({sortBy, sortOrder, onSortChange}) { // пропсы FilterSort
             default:
                 break
         }
+
         onSortChange(by, order)
     }
 
-    // const currentValue = sortBy && sortOrder ? `${sortBy}${sortOrder.charAt(0).toUpperCase() + sortOrder.slice(1)}` : undefined;
-
+    console.log(sortingName)
     return (
         <div className='sorting'>
             <label htmlFor="sort-select">Сортировать по: </label>
             <Select
-                value='По цене'
+                placeholder={sortingName}
+                value={names}
                 style={{ width: 150, textAlign: 'left' }}
                 onChange={handleSortChange}
             >
             <OptGroup label="По цене">
-                <Option value="priceAsc">Дороже</Option>
-                <Option value="priceDesc">Дешевле</Option>
+                <Option value="priceAsc">Дешевле</Option>
+                <Option value="priceDesc">Дороже</Option>
             </OptGroup>
 
             <OptGroup label="По рейтингу">
-                <Option value="ratingAsc">Выше</Option>
-                <Option value="ratingDesc">Ниже</Option>
+                <Option value="ratingAsc">Ниже</Option>
+                <Option value="ratingDesc">Выше</Option>
             </OptGroup>
 
             <OptGroup label="По названию">
-                <Option value="nameAsc">А-Я</Option>
-                <Option value="nameDesc">Я-А</Option>
+                <Option value="nameAsc">Я-А</Option>
+                <Option value="nameDesc">А-Я</Option>
             </OptGroup>
             </Select>
         </div>

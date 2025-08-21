@@ -76,16 +76,8 @@ function useMenuData(){
 export default useMenuData
 
 
-// вои переменные в хуке useMenuData, которые ты из searchParams получаешь, не реактивные. Они будут пересчитываться только после ререндера, но сам факт их изменения не вызывает рендер
-
-// чисто теоретически из-за твоих temp* стейтов ререндер вызываться должен, из-за чего даже с таким кодом все работало бы, но ты их вызываешь в useEffect, у которого в депсах указан searchParams. searchParams из хука useSearchParams, вероятно, никогда не меняет ссылку, поэтому твой эффект, изменяющий стейты, никогда не срабатывает, поэтому рендеринг никогда не срабатывает, поэтому пересчет параметров и useEffect в useMenuData не срабатывает
-
-// тебе нужно разобраться с тем, что в реакте вызывает ререндеринг, а что – нет. Этот код можно сильно проще написать
-
-
-
 // https://food-delivery.kreosoft.ru/api/dish?categories=Pizza&vegetarian=true&sorting=PriceAsc&page=1
 
-// https://food-delivery.kreosoft.ru/api/dish?category=Pizza&sortBy=name&sortOrder=asc&page=1&pageSize=8&isVegan=false
+// https://food-delivery.kreosoft.ru/api/dish?categories=Soup&sorting=pricedesc&page=1&pageSize=8&vegetarian=true
 
-// https://food-delivery.kreosoft.ru/api/dish?categories=Wok&sorting=name&sortOrder=asc&page=1&pageSize=8&isVegan=true
+// https://food-delivery.kreosoft.ru/api/dish?categories=Soup&vegetarian=true&sorting=PriceDesc&page=1

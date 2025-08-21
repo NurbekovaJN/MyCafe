@@ -14,6 +14,7 @@ function MenuPage(){
     const [tempSortBy, setTempSortBy] = useState(searchParams.get('sortBy') || 'name')
     const [tempSortOrder, setTempSortOrder] = useState(searchParams.get('sortOrder') || 'asc')
     const [tempIsVegan, setTempIsVegan] = useState(searchParams.get('isVegan') === 'true')
+    const [sortingName, setSortingName] = useState( 'Сортировать по')
     
     const {
         dishes,
@@ -23,23 +24,19 @@ function MenuPage(){
         currentPage,
         pageSize,
     } = useMenuData() // Используем кастомный хук для получения данных о блюдах, состоянии загрузки/ошибки, общего количества блюд, текующей страницы и количестве блюд на странице
-        
+    
+
     const applyFilters = () => {
         const newParams = new URLSearchParams()
 
-        let isVegan = ''
-        if(tempIsVegan){
-            isVegan = true
-        }else{
-            isVegan = false
-        }
-
-        if (tempCategory !== 'Все блюда') {
+        if (tempCategory !== 'Все блюда' && tempCategory !== null) {
             newParams.set('category', tempCategory)
         }
-        newParams.set('sortBy', tempSortBy + tempSortOrder)
-        // newParams.set('sortOrder', tempSortOrder)
-        newParams.set('isVegan', tempIsVegan && null) 
+        newParams.set('sortBy', tempSortBy + (tempSortOrder !== null ? tempSortOrder : ''))
+
+        if(tempIsVegan !== null){
+            newParams.set('isVegan', tempIsVegan) 
+        }
         newParams.set('page', '1')
 
         navigate(`?${newParams.toString()}`, { replace: true }) // Перенаправляем пользователя с новыми параметрами
@@ -51,6 +48,31 @@ function MenuPage(){
         newParams.set('pageSize', pageSize.toString()) // обновляем размер страницы
         navigate(`?${newParams.toString()}`, { replace: true }) // устанавливаем параметры
     }
+
+    useEffect(() => {
+        switch(tempSortBy + tempSortOrder){
+            case 'priceasc':
+                setSortingName('По возрастанию цены')
+                break
+            case 'pricedesc':
+                setSortingName('По убыванию цены')
+                break
+            case 'ratingAsc':
+                setSortingName('По возрастанию рейтинга')
+                break
+            case 'ratingDesc':
+                setSortingName('По убыванию рейтинга')
+                break
+            case 'nameAsc':
+                setSortingName('От Я-А')
+                break
+            case 'nameDesc':
+                setSortingName('От А-Я')
+                break
+            default:
+                break
+        }
+    },[tempSortBy, tempSortOrder])
 
     useEffect(() => {
         setTempCategory(searchParams.get('category'))
@@ -88,6 +110,7 @@ function MenuPage(){
                 currentPage={currentPage}
                 pageSize={pageSize}
                 applyFilters={applyFilters}
+                sortingName={sortingName}
             />
             <DishList
                 dishes={dishes}
