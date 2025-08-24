@@ -16,8 +16,7 @@ function useMenuData(){
     const sortOrder = searchParams.get('sortOrder') 
     const isVegan = searchParams.get('isVegan') 
     const currentPage = parseInt(searchParams.get('page') || '1', 10)
-    const pageSize = parseInt(searchParams.get('pageSize') || '8', 10)
-
+    const pageSize = parseInt(searchParams.get('pageSize') || '5', 10)
 
     useEffect(() => { 
         const API_URL = 'https://food-delivery.kreosoft.ru/api/dish'
@@ -27,7 +26,6 @@ function useMenuData(){
                 const params = { // объект который будет передан в качестве параметров запроса к АПИ
                     categories: category === 'Все блюда' ? undefined : category,
                     sorting: sortBy,
-                    // sortOrder: sortOrder,
                     page: currentPage,
                     pageSize: pageSize,
                     vegetarian: isVegan,
@@ -36,18 +34,17 @@ function useMenuData(){
                     Object.entries(params).filter(([_, v]) => v != null && v !== '' && v !== 'null')
                 );
                 const sParams = new URLSearchParams(cleanParams).toString()
-                console.log(sParams)
 
-                const queryString = Object.entries(params)
-                    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-                    .join("&");
+                // const queryString = Object.entries(params)
+                //     .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+                //     .join("&");
                 const resp = API_URL + '?' + sParams
-                console.log(resp)
 
                 const response = await axios.get(resp)
                 setDishes(response.data.dishes) // получаем и обновляем список блюд
-                setTotalDishes(response.data.totalCount) // получаем общее количество блюд
+                setTotalDishes(response.data.pagination.count) // получаем общее количество блюд
                 console.log(response.data.dishes)
+                console.log(response.data.pagination.count)
 
             } catch (err) {
                 console.error('ERROR fetching menu:', err)
@@ -65,19 +62,12 @@ function useMenuData(){
         error,
         totalDishes,
         currentPage,
-
         pageSize,
         category,
-        isVegan
+        isVegan,
     }
 
 }
 
 export default useMenuData
 
-
-// https://food-delivery.kreosoft.ru/api/dish?categories=Pizza&vegetarian=true&sorting=PriceAsc&page=1
-
-// https://food-delivery.kreosoft.ru/api/dish?categories=Soup&sorting=pricedesc&page=1&pageSize=8&vegetarian=true
-
-// https://food-delivery.kreosoft.ru/api/dish?categories=Soup&vegetarian=true&sorting=PriceDesc&page=1

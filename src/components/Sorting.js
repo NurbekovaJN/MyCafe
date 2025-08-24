@@ -14,28 +14,28 @@ function Sorting({sortBy, sortOrder, onSortChange, sortingName}) { // пропс
         switch(value){
             case 'priceAsc':
                 by = 'price'
-                order = 'asc' // сменить на заглавную букву
+                order = 'Asc' // сменить на заглавную букву
                 setNames('По возрастанию цены')
                 break
             case 'priceDesc':
                 by = 'price'
-                order = 'desc'
+                order = 'Desc'
                 break
             case 'ratingAsc':
                 by = 'rating'
-                order = 'asc'
+                order = 'Asc'
                 break
             case 'ratingDesc':
                 by = 'rating'
-                order = 'desc'
+                order = 'Desc'
                 break
             case 'nameAsc':
                 by = 'name'
-                order = 'asc'
+                order = 'Asc'
                 break
             case 'nameDesc':
                 by = 'name'
-                order = 'desc'
+                order = 'Desc'
                 break
             default:
                 break
@@ -44,14 +44,13 @@ function Sorting({sortBy, sortOrder, onSortChange, sortingName}) { // пропс
         onSortChange(by, order)
     }
 
-    console.log(sortingName)
     return (
         <div className='sorting'>
             <label htmlFor="sort-select">Сортировать по: </label>
             <Select
                 placeholder={sortingName}
                 value={names}
-                style={{ width: 150, textAlign: 'left' }}
+                style={{ width: 200, textAlign: 'left' }}
                 onChange={handleSortChange}
             >
             <OptGroup label="По цене">

@@ -42,9 +42,9 @@ function MenuPage(){
         navigate(`?${newParams.toString()}`, { replace: true }) // Перенаправляем пользователя с новыми параметрами
     }
 
-    const handlePageChange = (page, pageSize) => { 
+    const handlePageChange = (currentPage, pageSize) => { 
         const newParams = new URLSearchParams(searchParams) // копируем текущие параметры
-        newParams.set('page', page.toString()) // обновляем страницу
+        newParams.set('page', currentPage.toString()) // обновляем страницу
         newParams.set('pageSize', pageSize.toString()) // обновляем размер страницы
         navigate(`?${newParams.toString()}`, { replace: true }) // устанавливаем параметры
     }
@@ -126,11 +126,5 @@ function MenuPage(){
 export default MenuPage
 
 
-// Также по юзМенюДата и почему не обновляется содержимое
-// Есть state temp* и есть searchParams. Ты меняешь URL, но локальные стейты не синхронизируешь обратно из URL, поэтому fetchMenu продолжает дергать API со старыми temp*
 
-// Синхронизируй локальные стейты с URL
-// Добавь ЮзЭффект, который на каждое изменение searchParams перезаписывает temp* и пагинацию:
-
-// В MenuPage при нажатии применить лучше сбрасывать страницу на 1, и не записывать лишние данные по пагинации текущей
 

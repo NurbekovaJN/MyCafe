@@ -38,11 +38,11 @@ function DishList({dishes, currentPage, pageSize, totalDishes, onPageChange}){ /
                 />
             <div className="pagination">
                 <Pagination
-                    defaultCurrent={1}
-                    total={50}
-                    current={currentPage}
+                    // defaultCurrent={1}
+                    // total={50}
+                    currentPage={currentPage}
                     pageSize={pageSize}
-                    // total={totalDishes}
+                    totalDishes={totalDishes}
                     onChange={onPageChange}
                 />
             </div>

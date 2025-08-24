@@ -10,7 +10,6 @@ function VeganSwitch({isVegan, onToggleVegan}){
         setVegan(!vegan)
         onToggleVegan(checked)
     }
-    console.log(vegan)
 
     return(
         <div className='vegan-filter-container'>
