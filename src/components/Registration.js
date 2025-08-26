@@ -3,9 +3,9 @@ import { useState } from "react";
 import axios from "axios";
 
 function Registration(){
-    const [userName, setUserName] = useState('')
+    const [fullName, setUserName] = useState('')
     const [gender, setGender] = useState('')
-    const [phone, setPhone] = useState('')
+    const [phoneNumber, setPhone] = useState('')
     const [birthDate, setBirthDate] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -61,16 +61,16 @@ function Registration(){
 
     ////////
 
-    const validateUserName = (userName) => {
+    const validateUserName = (fullName) => {
         const regUserName = /^[A-Za-zА-яа-я\s]+$/
-        if(!userName){
+        if(!fullName){
             setUserNameError('')
             return true
-        }else if(!regUserName.test(userName)){
+        }else if(!regUserName.test(fullName)){
             setUserNameError('Имя должно содержать только буквы латинского алфавита и кириллицы')
             return false
         }
-        else if(userName.length < 2 || userName.length > 20){
+        else if(fullName.length < 2 || fullName.length > 20){
             setUserNameError('Имя должно быть длиннее 2 символов и короче 20')
             return false
         }   
@@ -87,12 +87,12 @@ function Registration(){
         return true
     }
 
-    const validatePhone = (phone) => {
+    const validatePhone = (phoneNumber) => {
         const regPhone = /^[\d\+][\d\(\)\ -]{4,14}\d$/
-        if(!phone){
+        if(!phoneNumber){
             setPhoneError('')
             return true
-        }else if(!regPhone.test(phone)){
+        }else if(!regPhone.test(phoneNumber)){
             setPhoneError('Введите номер корректно')
             return false
         }
@@ -153,9 +153,9 @@ function Registration(){
         e.preventDefault()
 
         console.log('Форма отправлена')
-        const isUserNameValid = validateUserName(userName)
+        const isUserNameValid = validateUserName(fullName)
         const isGenderValid = validateGender(gender)
-        const isPhoneValid = validatePhone(phone)
+        const isPhoneValid = validatePhone(phoneNumber)
         const isBirthDateValid = validateBirthDate(birthDate)
         const isEmailValid = validateEmail(email)
         const isPasswordValid = validatePassword(password)
@@ -172,25 +172,26 @@ function Registration(){
         ){
             try{
                 const registrationData = {
-                    userName, 
+                    fullName, 
                     gender, 
-                    phone, 
+                    phoneNumber, 
                     birthDate, 
                     email,
                     password,
+                    addressId: "ec9c177a-efd4-4894-9064-c5ceec28ea1b",
                 }
                 console.log('Данные для отправки:', registrationData)
 
-                const API_URL = 'https://food-delivery.kreosoft.ru/api/dish'
+                const API_URL = 'https://food-delivery.kreosoft.ru/api/account/register'
                 console.log('Отправляем запрос...')
-                
+
                 const response = await axios.post(API_URL, registrationData)
                 console.log(response.data)
 
                 if(response.status === 201){
                     alert('Регистрация прошла успешно')
                     setUserName('')
-                    setGender('')
+                    setGender('select-gender')
                     setPhone('')
                     setBirthDate('')
                     setEmail('')
@@ -211,20 +212,20 @@ function Registration(){
             <div className="input-container">
                 
                 <label htmlFor='user-name'>ФИО</label>
-                <input className='reg-input' type="text" id="user-name" placeholder="Введите ФИО" value={userName} onChange={handleUserNameChange}/>
+                <input className='reg-input' type="text" id="user-name" placeholder="Введите ФИО" value={fullName} onChange={handleUserNameChange}/>
                 {userNameError && <span className="input-error">{userNameError}</span>}
 
                 <label htmlFor='gender'>Пол</label>
                 <select className="gender-select" id="gender" value={gender} onChange={handleGenderChange}>
                     <option value="select-gender" key="select">---</option>
-                    <option value="gender-male" key="male">Мужчина</option>
-                    <option value="gender-female" key="female">Женщина</option>
+                    <option value="Male" key="male">Мужчина</option>
+                    <option value="Female" key="female">Женщина</option>
                 </select>
                 {genderError && <span className="input-error">{genderError}</span>}
     
-                <label htmlFor='user-phone'>Телефон</label>
-                <input className='reg-input' type="text" id="user-phone" placeholder="Введите телефон" 
-                value={phone} onChange={handlePhoneChange}/>
+                <label htmlFor='user-phoneNumber'>Телефон</label>
+                <input className='reg-input' type="text" id="user-phoneNumber" placeholder="Введите телефон" 
+                value={phoneNumber} onChange={handlePhoneChange}/>
                 {phoneError && <span className="input-error">{phoneError}</span>}
 
     
