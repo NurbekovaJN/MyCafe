@@ -88,7 +88,7 @@ function Registration(){
     }
 
     const validatePhone = (phoneNumber) => {
-        const regPhone = /^[\d\+][\d\(\)\ -]{4,14}\d$/
+        const regPhone = /^[\d]{1}\ \([\d]{2,3}\)\ [\d]{2,3}-[\d]{2,3}-[\d]{2,3}$/
         if(!phoneNumber){
             setPhoneError('')
             return true
@@ -224,7 +224,7 @@ function Registration(){
                 {genderError && <span className="input-error">{genderError}</span>}
     
                 <label htmlFor='user-phoneNumber'>Телефон</label>
-                <input className='reg-input' type="text" id="user-phoneNumber" placeholder="Введите телефон" 
+                <input className='reg-input' type="tel" autoComplete="tel" required id="user-phoneNumber" placeholder="Введите телефон" 
                 value={phoneNumber} onChange={handlePhoneChange}/>
                 {phoneError && <span className="input-error">{phoneError}</span>}
 
