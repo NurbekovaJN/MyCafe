@@ -1,15 +1,16 @@
-import React from "react";
-import { useState } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import axios from "axios";
+import Inputmask from 'inputmask'
 
 function Registration(){
     const [fullName, setUserName] = useState('')
     const [gender, setGender] = useState('')
-    const [phoneNumber, setPhone] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
     const [birthDate, setBirthDate] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const inputRef = useRef(null) // ссылка на ДОМ элемент инпут
 
     const [userNameError, setUserNameError] = useState('')
     const [genderError, setGenderError] = useState('')
@@ -31,7 +32,7 @@ function Registration(){
 
     const handlePhoneChange = (e) => {
         const newPhone = e.target.value
-        setPhone(newPhone)
+        setPhoneNumber(newPhone)
         validatePhone(newPhone)
     }
 
@@ -67,13 +68,13 @@ function Registration(){
             setUserNameError('')
             return true
         }else if(!regUserName.test(fullName)){
-            setUserNameError('Имя должно содержать только буквы латинского алфавита и кириллицы')
+            setUserNameError('ФИО должно содержать только буквы латинского алфавита и кириллицы')
             return false
         }
-        else if(fullName.length < 2 || fullName.length > 20){
-            setUserNameError('Имя должно быть длиннее 2 символов и короче 20')
-            return false
-        }   
+        // else if(fullName.length < 2 || fullName.length > 20){
+        //     setUserNameError('Имя должно быть длиннее 2 символов и короче 20')
+        //     return false
+        // }   
         setUserNameError('')
         return true
     }
@@ -88,7 +89,7 @@ function Registration(){
     }
 
     const validatePhone = (phoneNumber) => {
-        const regPhone = /^[\d]{1}\ \([\d]{2,3}\)\ [\d]{2,3}-[\d]{2,3}-[\d]{2,3}$/
+        const regPhone = /^\+7\ \(\d{3}\)\ \d{3}-\d{2}-\d{2}$/
         if(!phoneNumber){
             setPhoneError('')
             return true
@@ -98,6 +99,29 @@ function Registration(){
         }
         setPhoneError('')
         return true
+    }
+
+    const memoizedValidatePhone = useCallback((num) => validatePhone(num, setPhoneError), [setPhoneError]) 
+
+    useEffect(() => {
+        if(inputRef.current){
+            const inpMsk = new Inputmask({
+                'mask': "+7 (999) 999-99-99",
+                'placeholder': '_',
+                "showMaskOnFocus": true,
+                "jitMasking": true
+            })
+            inpMsk.mask(inputRef.current)
+
+            if(inputRef.current.value && inputRef.current.value !== phoneNumber){
+            setPhoneNumber(inputRef.current.value)
+            memoizedValidatePhone(inputRef.current.value)
+            }
+        }
+    }, [memoizedValidatePhone, phoneNumber])
+
+    const handlePhoneBlur = () => {
+        memoizedValidatePhone(phoneNumber);
     }
 
     const validateBirthDate = (birthDate) => {
@@ -192,7 +216,7 @@ function Registration(){
                     alert('Регистрация прошла успешно')
                     setUserName('')
                     setGender('select-gender')
-                    setPhone('')
+                    setPhoneNumber('')
                     setBirthDate('')
                     setEmail('')
                     setPassword('')
@@ -224,8 +248,8 @@ function Registration(){
                 {genderError && <span className="input-error">{genderError}</span>}
     
                 <label htmlFor='user-phoneNumber'>Телефон</label>
-                <input className='reg-input' type="tel" autoComplete="tel" required id="user-phoneNumber" placeholder="Введите телефон" 
-                value={phoneNumber} onChange={handlePhoneChange}/>
+                <input className='reg-input' type="tel" ref={inputRef} id="user-phoneNumber" placeholder="+7 (XXX) XXX-XX-XX"
+                value={phoneNumber} onChange={handlePhoneChange} onBlur={handlePhoneBlur}/>
                 {phoneError && <span className="input-error">{phoneError}</span>}
 
     
