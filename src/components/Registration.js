@@ -20,42 +20,42 @@ function Registration(){
     const [passwordError, setPasswordError] = useState('')
     const [confirmPasswordError, setConfirmPasswordError] = useState('')
 
-    const handleUserNameChange = (e) => {
-        const newUserName = e.target.value
+    const handleUserNameChange = (event) => {
+        const newUserName = event.target.value
         setUserName(newUserName)
         validateUserName(newUserName)
     }
 
-    const handleGenderChange = (e) => {
-        setGender(e.target.value)
+    const handleGenderChange = (event) => {
+        setGender(event.target.value)
     }
 
-    const handlePhoneChange = (e) => {
-        const newPhone = e.target.value
+    const handlePhoneChange = (event) => {
+        const newPhone = event.target.value
         setPhoneNumber(newPhone)
         validatePhone(newPhone)
     }
 
-    const handleBirthDateChange = (e) => {
-        const newBirthDate = e.target.value
+    const handleBirthDateChange = (event) => {
+        const newBirthDate = event.target.value
         setBirthDate(newBirthDate)
         validateBirthDate(newBirthDate)
     }
 
-    const handleEmailChange = (e) => {
-        const newEmail = e.target.value
+    const handleEmailChange = (event) => {
+        const newEmail = event.target.value
         setEmail(newEmail)
         validateEmail(newEmail)
     }
 
-    const handlePasswordChange = (e) => {
-        const newPassword = e.target.value
+    const handlePasswordChange = (event) => {
+        const newPassword = event.target.value
         setPassword(newPassword)
         validatePassword(newPassword)
     }
 
-    const handleConfirmPasswordChange = (e) => {
-        const newConfirmPassword = e.target.value
+    const handleConfirmPasswordChange = (event) => {
+        const newConfirmPassword = event.target.value
         setConfirmPassword(newConfirmPassword)
         validateConfirmPassword(newConfirmPassword)
     }
@@ -101,27 +101,30 @@ function Registration(){
         return true
     }
 
+    // функция запоминает себя и не пересоздается каждый раз когда компонент обновляется если только не изменились зависимости (useCallback() нужна для оптимизации, не тратя время на пересоздание функции)
     const memoizedValidatePhone = useCallback((num) => validatePhone(num, setPhoneError), [setPhoneError]) 
+    // когда мы вызываем эту функцию с аргументом num, она просто вызывает функцию валидейтФоун с этим num и функцией вызова ошибки
 
     useEffect(() => {
         if(inputRef.current){
-            const inpMsk = new Inputmask({
+            const inpMsk = new Inputmask({ // создаем новый объект с шаблоном
                 'mask': "+7 (999) 999-99-99",
                 'placeholder': '_',
-                "showMaskOnFocus": true,
-                "jitMasking": true
+                "showMaskOnFocus": true, // Когда пользователь кликает в поле, сразу показывается полный шаблон маски (+7 (___) ___-__-__).
+                "jitMasking": true // Это настройка для лучшей производительности маски (позволяет маске "на лету" применять форматирование)
             })
-            inpMsk.mask(inputRef.current)
+            inpMsk.mask(inputRef.current) // применяем созданную маску к реальному инпуту
+            // Теперь поле будет автоматически форматировать ввод по шаблону +7 (XXX) XXX-XX-XX.
 
-            if(inputRef.current.value && inputRef.current.value !== phoneNumber){
-            setPhoneNumber(inputRef.current.value)
-            memoizedValidatePhone(inputRef.current.value)
+            if(inputRef.current.value && inputRef.current.value !== phoneNumber){ // если в инпуте уже есть значение и это значение отличается от phoneNumber 
+            setPhoneNumber(inputRef.current.value) // переписываем состояние номера
+            memoizedValidatePhone(inputRef.current.value) // и сразу же запускаем проверку этого номера
             }
         }
     }, [memoizedValidatePhone, phoneNumber])
 
-    const handlePhoneBlur = () => {
-        memoizedValidatePhone(phoneNumber);
+    const handlePhoneBlur = () => { // функция будет вызываться когда пользователь кликнет за пределы ввода телефона
+        memoizedValidatePhone(phoneNumber); // при выходе из поля запускаем оптимизоравнную функицию проверки, передавая ей текующее значение из реакт ФоунНамбер. Это гарантирует то ошибка будет показана если польщователь введет что то некорректно
     }
 
     const validateBirthDate = (birthDate) => {
@@ -173,8 +176,8 @@ function Registration(){
 
     /////
 
-    const handleSubmit = async(e) => {
-        e.preventDefault()
+    const handleSubmit = async(event) => {
+        event.preventDefault() 
 
         console.log('Форма отправлена')
         const isUserNameValid = validateUserName(fullName)
@@ -294,3 +297,4 @@ function Registration(){
 }
 
 export default Registration
+
