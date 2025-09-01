@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useCallback } from "react";
 import FormFields from "./FormFields";
 import Inputmask from "inputmask";
+import Registration from "./Registration";
 
 function PhoneValidation(
     phoneNumber,
@@ -60,6 +61,10 @@ function PhoneValidation(
         <FormFields
             handlePhoneChange={handlePhoneChange}
             handlePhoneBlur={handlePhoneBlur}
+        />,
+
+        <Registration
+            validatePhone={validatePhone}
         />
     )
 }

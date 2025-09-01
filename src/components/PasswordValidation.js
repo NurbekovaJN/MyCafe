@@ -54,6 +54,11 @@ function PasswordValidation(
         <FormFields
             handlePasswordChange={handlePasswordChange}
             handleConfirmPasswordChange={handleConfirmPasswordChange}
+        />,
+
+        <Registration
+            validatePassword={validatePassword}
+            validateConfirmPassword={validateConfirmPassword}
         />
     )
 }
