@@ -38,6 +38,10 @@ function Registration(){
 
     }
 
+    const handleFullNameChange = () => {
+        
+    }
+
     const handleGenderChange = (event) => {
         const {value} = event.target
         setFormData(prev => ({...prev, gender: value}))
@@ -115,6 +119,8 @@ function Registration(){
         }
         
     })
+
+
 
      // функция запоминает себя и не пересоздается каждый раз когда компонент обновляется если только не изменились зависимости (useCallback() нужна для оптимизации, не тратя время на пересоздание функции)
     const memoizedValidatePhone = useCallback((num) => validatePhone(num, setPhoneError), [setPhoneError]) 
